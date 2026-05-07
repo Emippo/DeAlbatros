@@ -1,2 +1,57 @@
 <link rel="stylesheet" href="css/style.css">
 <script src="js/main.js" defer></script>
+
+<!-- ==================== PAGINA: FOTO'S ==================== -->
+<div id="page-fotos" class="page">
+  <div class="page-header">
+    <div class="section-label">Herinneringen</div>
+    <h1>Fotoalbums</h1>
+    <p>Blik terug op onze mooiste avonturen, kampen en activiteiten.</p>
+  </div>
+  <div class="section">
+    <div class="foto-filter-bar">
+      <button class="filter-btn active" onclick="filterAlbums('alle',this)">Alle albums</button>
+      <button class="filter-btn" onclick="filterAlbums('bevers',this)">Bevers</button>
+      <button class="filter-btn" onclick="filterAlbums('welpen',this)">Welpen</button>
+      <button class="filter-btn" onclick="filterAlbums('jvg',this)">JVG's</button>
+      <button class="filter-btn" onclick="filterAlbums('vg',this)">VG's</button>
+      <button class="filter-btn" onclick="filterAlbums('seniors',this)">Seniors</button>
+      <button class="filter-btn" onclick="filterAlbums('stam',this)">Stam</button>
+      <button class="filter-btn" onclick="filterAlbums('kamp',this)">Kampen</button>
+    </div>
+    <div class="albums-grid" id="albumsGrid">
+      <div class="album-card" data-tak="kamp">
+        <div class="album-thumb" style="background:#D6EAF8"><span>🏕️</span><span class="album-badge">Nieuw</span></div>
+        <div class="album-info"><h3>Zomerkamp 2025</h3><p>Juli 2025 · Ardennen</p><div class="album-meta"><span class="album-tak">Alle takken</span><span class="album-count"><i class="ti ti-photo"></i> 142 foto's</span></div></div>
+      </div>
+      <div class="album-card" data-tak="welpen">
+        <div class="album-thumb" style="background:#FEF9E7"><span>🐺</span></div>
+        <div class="album-info"><h3>Weekendactiviteit welpen</h3><p>April 2025</p><div class="album-meta"><span class="album-tak">Welpen</span><span class="album-count"><i class="ti ti-photo"></i> 58 foto's</span></div></div>
+      </div>
+      <div class="album-card" data-tak="bevers">
+        <div class="album-thumb" style="background:#FADBD8"><span>🦫</span></div>
+        <div class="album-info"><h3>Boudewijn Seapark 2025</h3><p>Mei 2025</p><div class="album-meta"><span class="album-tak">Bevers</span><span class="album-count"><i class="ti ti-photo"></i> 34 foto's</span></div></div>
+      </div>
+      <div class="album-card" data-tak="jvg">
+        <div class="album-thumb" style="background:#D5F5E3"><span>🌿</span></div>
+        <div class="album-info"><h3>Survival weekend JVG's</h3><p>Maart 2025</p><div class="album-meta"><span class="album-tak">JVG's</span><span class="album-count"><i class="ti ti-photo"></i> 76 foto's</span></div></div>
+      </div>
+      <div class="album-card" data-tak="vg">
+        <div class="album-thumb" style="background:#D6EAF8"><span>⚡</span></div>
+        <div class="album-info"><h3>Projectweekend VG's</h3><p>Februari 2025</p><div class="album-meta"><span class="album-tak">VG's</span><span class="album-count"><i class="ti ti-photo"></i> 49 foto's</span></div></div>
+      </div>
+      <div class="album-card" data-tak="seniors">
+        <div class="album-thumb" style="background:#EAE8FF"><span>🔥</span></div>
+        <div class="album-info"><h3>Totemisatie 2025</h3><p>Januari 2025</p><div class="album-meta"><span class="album-tak">Seniors</span><span class="album-count"><i class="ti ti-photo"></i> 91 foto's</span></div></div>
+      </div>
+      <div class="album-card" data-tak="kamp">
+        <div class="album-thumb" style="background:#D6EAF8"><span>🏕️</span></div>
+        <div class="album-info"><h3>Zomerkamp 2024</h3><p>Juli 2024 · Luxemburg</p><div class="album-meta"><span class="album-tak">Alle takken</span><span class="album-count"><i class="ti ti-photo"></i> 210 foto's</span></div></div>
+      </div>
+      <div class="album-card" data-tak="stam">
+        <div class="album-thumb" style="background:#EAECEE"><span>🏕️</span></div>
+        <div class="album-info"><h3>Stam activiteit 2024</h3><p>Oktober 2024</p><div class="album-meta"><span class="album-tak">Stam</span><span class="album-count"><i class="ti ti-photo"></i> 28 foto's</span></div></div>
+      </div>
+    </div>
+  </div>
+</div>
