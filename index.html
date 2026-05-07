@@ -66,6 +66,11 @@ nav{background:var(--blue);display:flex;align-items:center;justify-content:space
 .page-header h1{font-family:'Playfair Display',serif;font-size:2rem;line-height:1.2;margin-bottom:.3rem}
 .page-header p{font-size:.9rem;opacity:.75;max-width:500px}
 
+/* LOGIN */
+.login-modal{position:fixed;inset:0;background:rgba(0,0,0,.6);display:none;align-items:center;justify-content:center;z-index:999;}
+.login-box{background:white;padding:2rem;border-radius:14px;width:320px;}
+.login-box input{width:100%;margin-bottom:1rem;padding:12px;border-radius:8px;border:1px solid #ccc;}
+  
 /* SECTIONS */
 .section{padding:2rem 2rem}
 .section-label{font-size:.65rem;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--blue-light);margin-bottom:.3rem}
@@ -166,6 +171,9 @@ footer{background:var(--blue-dark);color:rgba(255,255,255,.65);padding:2rem;font
   <div class="topbar-right">
     <a href="http://www.facebook.com/FOSalbatros" class="social-btn" target="_blank"><i class="ti ti-brand-facebook"></i>Facebook</a>
     <a href="https://www.instagram.com/de_albatros/" class="social-btn" target="_blank"><i class="ti ti-brand-instagram"></i>Instagram</a>
+    <button class="nav-link" onclick="openLogin()">
+      <i class="ti ti-login"></i> Login
+    </button>
   </div>
 </div>
 
@@ -559,6 +567,10 @@ function syncNav(pageId) {
   });
 }
 
+function openLogin(){
+  document.getElementById('loginModal').style.display='flex';
+}
+
 function filterAlbums(tak, btn) {
   document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
   btn.classList.add('active');
@@ -567,5 +579,15 @@ function filterAlbums(tak, btn) {
   });
 }
 </script>
+  <div id="loginModal" class="login-modal">
+    <div class="login-box">
+      <h2>Leiding login</h2>
+  
+      <input type="email" placeholder="Email">
+      <input type="password" placeholder="Wachtwoord">
+  
+      <button class="btn-yellow">Inloggen</button>
+    </div>
+  </div>
 </body>
 </html>
