@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | De Albatros</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="section" style="max-width:400px;margin:auto;padding-top:5rem">
+  <h1>Login</h1>
+  <input type="email" id="email" placeholder="E-mail" style="width:100%;padding:1rem;margin-bottom:1rem">
+  <input type="password" id="password" placeholder="Wachtwoord" style="width:100%;padding:1rem;margin-bottom:1rem">
+  <button onclick="login()" style="width:100%;padding:1rem"> Inloggen </button>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+<script>
+const supabaseUrl = 'https://vycijnudgeqqgxpkxrih.supabase.co/rest/v1/'
+const supabaseKey = 'sb_publishable_J21o5TVTub4LzL_xj6iNEA_lDqWY6ed'
+const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+async function login(){
+  const email = document.getElementById('email').value
+  const password = document.getElementById('password').value
+  const { data, error } = await supabase.auth.signInWithPassword({email, password})
+  if(error){alert(error.message) return}
+  window.location.href = "admin.html"
+}
+</script>
+
+</body>
+</html>
