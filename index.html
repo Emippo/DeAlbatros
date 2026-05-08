@@ -15,7 +15,20 @@ const supabaseUrl = 'https://vycijnudgeqqgxpkxrih.supabase.co/rest/v1/'
 const supabaseKey = 'sb_publishable_J21o5TVTub4LzL_xj6iNEA_lDqWY6ed'
 const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
 </script>
+  
+<!-- LOGIN MODAL -->
+<div id="loginModal" class="modal">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeLogin()"> ✕ </button>
+    <h2>Inloggen</h2>
+    <input type="email" id="email" placeholder="E-mail" >
+    <input type="password" id="password" placeholder="Wachtwoord">
+    <button onclick="login()"> Inloggen </button>
+  </div>
+</div>
+  
 <body>
+  
 <!-- TOPBAR -->
 <div class="topbar">
   <div class="topbar-left">
@@ -28,6 +41,7 @@ const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
   <div class="topbar-right">
     <a href="http://www.facebook.com/FOSalbatros" class="social-btn" target="_blank"><i class="ti ti-brand-facebook"></i>Facebook</a>
     <a href="https://www.instagram.com/de_albatros/" class="social-btn" target="_blank"><i class="ti ti-brand-instagram"></i>Instagram</a>
+    <button class="login-btn" onclick="openLogin()"> <i class="ti ti-user"></i> Login </button>
   </div>
 </div>
 <!-- NAVIGATIE -->
