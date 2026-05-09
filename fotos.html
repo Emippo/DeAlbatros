@@ -8,40 +8,24 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="stylesheet" href="css/style.css">
+<script>window.ACTIVE_PAGE='fotos'; window.ACTIVE_TOPBAR='fotos';</script>
+<script src="js/components.js"></script>
 </head>
 <body>
-<!-- TOPBAR -->
-<div class="topbar">
-  <div class="topbar-left">
-    <a href="index.html" class="topbar-link "><i class="ti ti-home"></i>Home</a>
-    <a href="info.html" class="topbar-link "><i class="ti ti-info-circle"></i>Info</a>
-    <a href="kalender.html" class="topbar-link "><i class="ti ti-calendar"></i>Kalender</a>
-    <a href="fotos.html" class="topbar-link active"><i class="ti ti-photo"></i>Foto's</a>
-    <a href="contact.html" class="topbar-link "><i class="ti ti-mail"></i>Contact</a>
-  </div>
-  <div class="topbar-right">
-    <a href="http://www.facebook.com/FOSalbatros" class="social-btn" target="_blank"><i class="ti ti-brand-facebook"></i>Facebook</a>
-    <a href="https://www.instagram.com/de_albatros/" class="social-btn" target="_blank"><i class="ti ti-brand-instagram"></i>Instagram</a>
-  </div>
+
+<!-- Edit bar: enkel voor eenheidsleiding -->
+<div class="edit-bar" data-permission="canEditAlbums">
+  <span><i class="ti ti-shield-check"></i> Eenheidsleiding</span>
+  <button class="edit-bar-btn" onclick="alert('Album toevoegen — koppel hier je CMS')"><i class="ti ti-photo-plus"></i> Album toevoegen</button>
+  <button class="edit-bar-btn" onclick="alert('Albums beheren')"><i class="ti ti-edit"></i> Albums beheren</button>
 </div>
-<!-- NAVIGATIE -->
-<nav>
-  <a href="index.html" class="nav-logo">
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Logo 102e FOS De Albatros">
-    <div class="nav-logo-text">De Albatros<small>102e FOS · Knokke-Heist</small></div>
-  </a>
-  <div class="search-bar"><i class="ti ti-search"></i><input type="text" placeholder="Zoeken..."></div>
-  <div class="nav-links">
-    <a href="index.html" class="nav-link ">Home</a>
-    <a href="takken.html" class="nav-link ">Takken</a>
-    <a href="fotos.html" class="nav-link active">Foto's</a>
-    <a href="kalender.html" class="nav-link ">Kalender</a>
-    <a href="albatrossertje.html" class="nav-link ">Albatrossertje</a>
-    <a href="contact.html" class="nav-link ">Contact</a>
-    <a href="http://www.keeo.fos.be" class="nav-link nav-cta" target="_blank">Lid worden</a>
-  </div>
-</nav>
-<div class="page-header"><div class="section-label">Herinneringen</div><h1>Fotoalbums</h1><p>Blik terug op onze mooiste avonturen, kampen en activiteiten.</p></div>
+
+<div class="page-header">
+  <div class="section-label">Herinneringen</div>
+  <h1>Fotoalbums</h1>
+  <p>Blik terug op onze mooiste avonturen, kampen en activiteiten.</p>
+</div>
+
 <div class="section">
   <div class="foto-filter-bar">
     <button class="filter-btn active" onclick="filterAlbums('alle',this)">Alle albums</button>
@@ -53,6 +37,7 @@
     <button class="filter-btn" onclick="filterAlbums('stam',this)">Stam</button>
     <button class="filter-btn" onclick="filterAlbums('kamp',this)">Kampen</button>
   </div>
+
   <div class="albums-grid" id="albumsGrid">
     <a href="#" class="album-card" data-tak="kamp"><div class="album-thumb" style="background:#D6EAF8"><span>🏕️</span><span class="album-badge">Nieuw</span></div><div class="album-info"><h3>Zomerkamp 2025</h3><p>Juli 2025 · Ardennen</p><div class="album-meta"><span class="album-tak">Alle takken</span><span class="album-count"><i class="ti ti-photo"></i> 142 foto's</span></div></div></a>
     <a href="#" class="album-card" data-tak="welpen"><div class="album-thumb" style="background:#FEF9E7"><span>🐺</span></div><div class="album-info"><h3>Weekendactiviteit welpen</h3><p>April 2025</p><div class="album-meta"><span class="album-tak">Welpen</span><span class="album-count"><i class="ti ti-photo"></i> 58 foto's</span></div></div></a>
@@ -64,53 +49,16 @@
     <a href="#" class="album-card" data-tak="stam"><div class="album-thumb" style="background:#EAECEE"><span>🏕️</span></div><div class="album-info"><h3>Stam activiteit 2024</h3><p>Oktober 2024</p><div class="album-meta"><span class="album-tak">Stam</span><span class="album-count"><i class="ti ti-photo"></i> 28 foto's</span></div></div></a>
   </div>
 </div>
+
 <script>
 function filterAlbums(tak, btn) {
-  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.remove('active'); });
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.album-card').forEach(function(card){
-    card.style.display = (tak==='alle' || card.dataset.tak===tak) ? 'block' : 'none';
+  document.querySelectorAll('.album-card').forEach(card => {
+    card.style.display = (tak === 'alle' || card.dataset.tak === tak) ? 'block' : 'none';
   });
 }
 </script>
 
-<!-- FOOTER -->
-<footer>
-  <div class="footer-inner">
-    <div>
-      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=" alt="Logo" style="width:52px;height:52px;border-radius:50%;margin-bottom:.6rem;border:2px solid rgba(245,197,24,.4)">
-      <div><strong style="color:var(--yellow)">102e FOS De Albatros</strong></div>
-      <div style="margin-top:.2rem;opacity:.6">Knokke-Heist · <a href="http://www.fos.be" style="color:rgba(255,255,255,.4)" target="_blank">FOS Open Scouting</a></div>
-      <div class="footer-social">
-        <a href="http://www.facebook.com/FOSalbatros" target="_blank"><i class="ti ti-brand-facebook"></i> Facebook</a>
-        <a href="https://www.instagram.com/de_albatros/" target="_blank"><i class="ti ti-brand-instagram"></i> Instagram</a>
-      </div>
-    </div>
-    <div class="footer-col"><h4>Navigatie</h4>
-      <div class="footer-links-col">
-        <a href="index.html">Home</a>
-        <a href="takken.html">Onze takken</a>
-        <a href="fotos.html">Foto's</a>
-        <a href="kalender.html">Kalender</a>
-        <a href="albatrossertje.html">'t Albatrossertje</a>
-        <a href="contact.html">Contact</a>
-      </div>
-    </div>
-    <div class="footer-col"><h4>Info</h4>
-      <div class="footer-links-col">
-        <a href="info.html">Algemene info</a>
-        <a href="https://www.dealbatros.be/onze-leiding/" target="_blank">Onze leiding</a>
-        <a href="https://www.dealbatros.be/kampen/" target="_blank">Kampen</a>
-        <a href="https://www.dealbatros.be/de-winkel/" target="_blank">FOS-shop</a>
-      </div>
-    </div>
-    <div class="footer-col"><h4>Contact</h4>
-      <div class="footer-links-col">
-        <a href="mailto:eenheidsleiding@dealbatros.be">eenheidsleiding@dealbatros.be</a>
-        <a href="http://www.keeo.fos.be" target="_blank">Keeo ouderportaal</a>
-      </div>
-    </div>
-  </div>
-  <div class="footer-bottom">© 2026 102e FOS De Albatros · Knokke-Heist</div>
-</footer>
-</body></html>
+</body>
+</html>
