@@ -1,36 +1,123 @@
-<link rel="stylesheet" href="../css/style.css">
-<script src="../js/main.js" defer></script>
-
 <!DOCTYPE html>
 <html lang="nl">
 <head>
-  <meta charset="UTF-8">
-  <title>Bevers | De Albatros</title>
-  <link rel="stylesheet" href="../css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bevers | 102e FOS De Albatros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<script>window.ACTIVE_PAGE='takken'; window.COMPONENTS_DEPTH=1;</script>
+<script src="../js/components.js"></script>
 </head>
 <body>
-<nav>
-  ...
-</nav>
-<div class="page-header">
-  <div class="section-label">
-    Takken
+
+<!-- Edit bar: enkel zichtbaar voor bevers_leiding & eenheidsleiding -->
+<div class="edit-bar" data-edit-tak="bevers">
+  <span><i class="ti ti-shield-check"></i> Beversleiding / Eenheidsleiding</span>
+  <button class="edit-bar-btn" onclick="alert('Pagina-inhoud bewerken — koppel hier je CMS')"><i class="ti ti-edit"></i> Pagina bewerken</button>
+  <button class="edit-bar-btn" onclick="alert('Activiteit toevoegen')"><i class="ti ti-calendar-plus"></i> Activiteit toevoegen</button>
+</div>
+
+<div class="tak-page-header" style="background:linear-gradient(150deg,#8B1A1A,#E24B4A)">
+  <span class="tak-emoji-big">🦫</span>
+  <h1>Bevers</h1>
+  <div class="tak-leeftijd">5 jaar – 2e leerjaar</div>
+  <p>De allerkleinsten van De Albatros! Bevers spelen, knutselen, zingen en ontdekken de natuur op een speelse en veilige manier.</p>
+</div>
+
+<!-- Tak nav -->
+<div style="background:#fff;border-bottom:0.5px solid var(--border);padding:.6rem 2rem;display:flex;gap:.5rem;flex-wrap:wrap">
+  <a href="bevers.html"   style="font-size:.75rem;font-weight:900;color:#E24B4A;text-decoration:none;padding:4px 12px;background:#FDEDEC;border-radius:999px">Bevers</a>
+  <a href="welpen.html"   style="font-size:.75rem;font-weight:700;color:var(--text-muted);text-decoration:none;padding:4px 12px;border-radius:999px">Welpen</a>
+  <a href="jvg.html"      style="font-size:.75rem;font-weight:700;color:var(--text-muted);text-decoration:none;padding:4px 12px;border-radius:999px">JVG's</a>
+  <a href="vg.html"       style="font-size:.75rem;font-weight:700;color:var(--text-muted);text-decoration:none;padding:4px 12px;border-radius:999px">VG's</a>
+  <a href="seniors.html"  style="font-size:.75rem;font-weight:700;color:var(--text-muted);text-decoration:none;padding:4px 12px;border-radius:999px">Seniors</a>
+  <a href="stam.html"     style="font-size:.75rem;font-weight:700;color:var(--text-muted);text-decoration:none;padding:4px 12px;border-radius:999px">Stam</a>
+</div>
+
+<div class="section">
+  <div class="section-label">Over de tak</div>
+  <div class="section-title">Wat doen bevers?</div>
+  <div class="tak-info-grid">
+    <div class="tak-info-card"><div class="icon">🎨</div><h3>Knutselen &amp; spelen</h3><p>Bevers maken van alles met hun handjes: versieringen, maskers, kleine bouwwerkjes. Spelen staat centraal!</p></div>
+    <div class="tak-info-card"><div class="icon">🌳</div><h3>Natuur ontdekken</h3><p>In het bos, op het strand of in de tuin — bevers leren de natuur kennen op een speelse, avontuurlijke manier.</p></div>
+    <div class="tak-info-card"><div class="icon">🎵</div><h3>Zingen &amp; bewegen</h3><p>Liedjes, dansjes en spelletjes waarbij iedereen meedoet. Energie kwijt en plezier maken!</p></div>
+    <div class="tak-info-card"><div class="icon">👫</div><h3>Vriendjes maken</h3><p>In een kleine, vertrouwde groep leren kleine bevers samen spelen en nieuwe vriendjes maken.</p></div>
   </div>
-  <h1>🦫 Bevers</h1>
-  <p>De allerkleinsten van de groep!</p>
 </div>
+
+<div class="divider"></div>
+
 <div class="section">
-  <h2>Wie zijn wij?</h2>
-  <p>
-    Bevers ontdekken spelenderwijs scouting, natuur en avontuur.
-  </p>
+  <div class="section-label">Praktisch</div>
+  <div class="section-title">Info voor ouders</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:1rem">
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:1.2rem">
+      <div style="font-size:1.2rem;margin-bottom:.4rem">📅</div>
+      <h3 style="font-size:.88rem;font-weight:900;margin-bottom:.3rem">Vergaderdag</h3>
+      <p style="font-size:.8rem;color:var(--text-muted)">Elke zondag van 9u30 tot 12u00.<br>Locatie: scoutslokaal, Knokke-Heist.</p>
+    </div>
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:1.2rem">
+      <div style="font-size:1.2rem;margin-bottom:.4rem">👕</div>
+      <h3 style="font-size:.88rem;font-weight:900;margin-bottom:.3rem">Uniform</h3>
+      <p style="font-size:.8rem;color:var(--text-muted)">Blauw FOS-hemd + rode das. Bestellen via de <a href="https://www.dealbatros.be/de-winkel/" style="color:var(--blue-light);font-weight:700" target="_blank">FOS-shop</a>.</p>
+    </div>
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:1.2rem">
+      <div style="font-size:1.2rem;margin-bottom:.4rem">💶</div>
+      <h3 style="font-size:.88rem;font-weight:900;margin-bottom:.3rem">Lidgeld</h3>
+      <p style="font-size:.8rem;color:var(--text-muted)">Inschrijven en betalen via <a href="http://www.keeo.fos.be" style="color:var(--blue-light);font-weight:700" target="_blank">Keeo</a>. Meer info bij de leiding.</p>
+    </div>
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:1.2rem">
+      <div style="font-size:1.2rem;margin-bottom:.4rem">📦</div>
+      <h3 style="font-size:.88rem;font-weight:900;margin-bottom:.3rem">Wat meebrengen</h3>
+      <p style="font-size:.8rem;color:var(--text-muted)">Drinkfles, weersgeschikte kledij en goede zin! De rest voorzien wij.</p>
+    </div>
+  </div>
 </div>
+
+<div class="divider"></div>
+
 <div class="section">
-  <h2>Leeftijd</h2>
-  <p>5 jaar – 2e leerjaar</p>
+  <div class="section-label">Leiding</div>
+  <div class="section-title">Onze beversleiding</div>
+  <div class="leiding-grid">
+    <div class="leiding-card">
+      <div class="leiding-avatar" style="background:#E24B4A">VB</div>
+      <h4>Vlugge Bever</h4>
+      <div class="totem">Totem naam</div>
+      <a href="mailto:bevers@dealbatros.be" class="email">bevers@dealbatros.be</a>
+    </div>
+    <div class="leiding-card">
+      <div class="leiding-avatar" style="background:#c0392b">RV</div>
+      <h4>Rode Vos</h4>
+      <div class="totem">Totem naam</div>
+    </div>
+    <div class="leiding-card">
+      <div class="leiding-avatar" style="background:#e74c3c">ZO</div>
+      <h4>Zachtmoedige Otter</h4>
+      <div class="totem">Totem naam</div>
+    </div>
+  </div>
 </div>
-<footer>
-  ...
-</footer>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="section-label">Activiteiten</div>
+  <div class="section-title">Komende activiteiten</div>
+  <div class="kalender-card"><div class="kal-date"><span class="day">17</span><span class="mon">Mei</span></div><div class="kal-info"><h3>Weekendactiviteit Bevers</h3><p>Boudewijn Seapark uitstap</p></div><div class="kal-tag" style="background:#FDEDEC;color:#E24B4A">Bevers</div></div>
+  <div class="kalender-card"><div class="kal-date"><span class="day">12</span><span class="mon">Jul</span></div><div class="kal-info"><h3>Zomerkamp 2026</h3><p>Meer info volgt binnenkort</p></div><div class="kal-tag" style="background:#FDEDEC;color:#E24B4A">Bevers</div></div>
+  <p style="margin-top:.8rem"><a href="../kalender.html" style="font-size:.82rem;font-weight:700;color:var(--blue-light);text-decoration:none">Volledige kalender →</a></p>
+</div>
+
+<div class="section" style="padding-top:.5rem">
+  <div class="lid-banner">
+    <div><h2>Jouw kind bij de bevers?</h2><p>Inschrijven kan gemakkelijk via Keeo, het ouderportaal van FOS.</p></div>
+    <a href="http://www.keeo.fos.be" class="btn-blue" target="_blank">Inschrijven</a>
+  </div>
+</div>
+
 </body>
 </html>
