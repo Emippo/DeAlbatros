@@ -1,2 +1,324 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FOS-shop | 102e FOS De Albatros</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="stylesheet" href="css/style.css">
-<script src="js/main.js" defer></script>
+<script>window.ACTIVE_PAGE='fosshop';</script>
+<script src="js/components.js"></script>
+</head>
+<body>
+
+<!-- Edit bar voor eenheidsleiding -->
+<div class="edit-bar" data-permission="canManageEvents">
+  <span><i class="ti ti-shield-check"></i> Eenheidsleiding</span>
+  <button class="edit-bar-btn" onclick="alert('Producten bewerken — koppel hier je CMS')"><i class="ti ti-edit"></i> Producten bewerken</button>
+  <button class="edit-bar-btn" onclick="alert('Prijzen aanpassen')"><i class="ti ti-currency-euro"></i> Prijzen aanpassen</button>
+</div>
+
+<div class="page-header">
+  <div class="section-label">Onze winkel</div>
+  <h1>FOS-shop</h1>
+  <p>Uniform, kledij en groepsmateriaal van 102e FOS De Albatros.</p>
+</div>
+
+<!-- Info banner -->
+<div style="background:var(--blue-pale);padding:.9rem 2rem;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap">
+  <i class="ti ti-info-circle" style="color:var(--blue-light);font-size:1.1rem;flex-shrink:0"></i>
+  <p style="font-size:.82rem;color:var(--blue-dark);flex:1">
+    Aankopen kunnen via de leiding of ter plaatse bij activiteiten. Voor vragen: <a href="mailto:eenheidsleiding@dealbatros.be" style="color:var(--blue);font-weight:700">eenheidsleiding@dealbatros.be</a>.
+    Betaling via overschrijving of cash.
+  </p>
+  <a href="https://www.dealbatros.be/de-winkel/" class="btn-blue" target="_blank" style="font-size:.8rem;padding:7px 16px;white-space:nowrap">
+    <i class="ti ti-external-link"></i> Officiële FOS-shop
+  </a>
+</div>
+
+<div class="section">
+  <div class="section-label">Verplicht</div>
+  <div class="section-title">Uniform</div>
+  <div class="section-sub">Elk lid draagt het FOS-uniform bij activiteiten.</div>
+
+  <div class="shop-grid">
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#D6EAF8,#A9CCE3)">
+        <span style="font-size:3rem">👕</span>
+      </div>
+      <div class="shop-info">
+        <h3>FOS-hemd</h3>
+        <p>Blauw officieel FOS-hemd, verplicht voor alle leden. Beschikbaar in alle maten (XS t/m XXL).</p>
+        <div class="shop-meta">
+          <span class="shop-badge required">Verplicht</span>
+          <span class="shop-price">€ 22</span>
+        </div>
+        <div class="shop-sizes">
+          <span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span><span>XXL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#FDEDEC,#F9B9B7)">
+        <span style="font-size:3rem">🎀</span>
+      </div>
+      <div class="shop-info">
+        <h3>Das — Bevers</h3>
+        <p>Rode das voor de beverstak. Verplicht bij uniform.</p>
+        <div class="shop-meta">
+          <span class="shop-badge" style="background:#FDEDEC;color:#E24B4A">Bevers</span>
+          <span class="shop-price">€ 8</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#FEF9E7,#FAD7A0)">
+        <span style="font-size:3rem">🎀</span>
+      </div>
+      <div class="shop-info">
+        <h3>Das — Welpen</h3>
+        <p>Oranje das voor de welpentak. Verplicht bij uniform.</p>
+        <div class="shop-meta">
+          <span class="shop-badge" style="background:#FEF9E7;color:#EF9F27">Welpen</span>
+          <span class="shop-price">€ 8</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#EAFBEA,#A9DFBF)">
+        <span style="font-size:3rem">🎀</span>
+      </div>
+      <div class="shop-info">
+        <h3>Das — JVG's</h3>
+        <p>Groene das voor de JVG-tak. Verplicht bij uniform.</p>
+        <div class="shop-meta">
+          <span class="shop-badge" style="background:#EAFBEA;color:#2D6A1F">JVG's</span>
+          <span class="shop-price">€ 8</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#D6EAF8,#85C1E9)">
+        <span style="font-size:3rem">🎀</span>
+      </div>
+      <div class="shop-info">
+        <h3>Das — VG's</h3>
+        <p>Blauwe das voor de VG-tak. Verplicht bij uniform.</p>
+        <div class="shop-meta">
+          <span class="shop-badge" style="background:#D6EAF8;color:#1A5276">VG's</span>
+          <span class="shop-price">€ 8</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#EAE8FF,#C5C0F0)">
+        <span style="font-size:3rem">🎀</span>
+      </div>
+      <div class="shop-info">
+        <h3>Das — Seniors</h3>
+        <p>Paarse das voor de seniorentak. Verplicht bij uniform.</p>
+        <div class="shop-meta">
+          <span class="shop-badge" style="background:#EAE8FF;color:#7F77DD">Seniors</span>
+          <span class="shop-price">€ 8</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="section-label">Extra</div>
+  <div class="section-title">Groepskledij &amp; accessoires</div>
+  <div class="section-sub">Optioneel maar populair bij onze leden.</div>
+
+  <div class="shop-grid">
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#0F3260,#1A5276)">
+        <span style="font-size:3rem">🧥</span>
+      </div>
+      <div class="shop-info">
+        <h3>Groepspull — De Albatros</h3>
+        <p>Donkerblauwe pull met het logo van 102e FOS De Albatros. Warm en duurzaam.</p>
+        <div class="shop-meta">
+          <span class="shop-badge">Alle takken</span>
+          <span class="shop-price">€ 35</span>
+        </div>
+        <div class="shop-sizes">
+          <span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#F4F8FC,#D6EAF8)">
+        <span style="font-size:3rem">🧢</span>
+      </div>
+      <div class="shop-info">
+        <h3>Groepspet</h3>
+        <p>Verstelbare pet met borduursel van De Albatros. Ideaal voor zonnige activiteiten.</p>
+        <div class="shop-meta">
+          <span class="shop-badge">Alle takken</span>
+          <span class="shop-price">€ 14</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#FEF9E7,#F5C518)">
+        <span style="font-size:3rem">🎽</span>
+      </div>
+      <div class="shop-info">
+        <h3>T-shirt — De Albatros</h3>
+        <p>Geel t-shirt met logo. Luchtig en comfortabel, ideaal voor kampen en uitstappen.</p>
+        <div class="shop-meta">
+          <span class="shop-badge" style="background:var(--yellow-pale);color:var(--yellow-dark)">Extra</span>
+          <span class="shop-price">€ 18</span>
+        </div>
+        <div class="shop-sizes">
+          <span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="shop-card">
+      <div class="shop-thumb" style="background:linear-gradient(135deg,#EAECEE,#BFC9CA)">
+        <span style="font-size:3rem">🎒</span>
+      </div>
+      <div class="shop-info">
+        <h3>Dagrugzak</h3>
+        <p>Compacte rugzak met logo, ideaal voor dagactiviteiten en weekends.</p>
+        <div class="shop-meta">
+          <span class="shop-badge" style="background:#EAECEE;color:#5a5a6a">Extra</span>
+          <span class="shop-price">€ 28</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
+<div class="section">
+  <div class="section-label">Bestellen</div>
+  <div class="section-title">Hoe bestellen?</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1rem;margin-bottom:1.5rem">
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:1.3rem">
+      <div style="font-size:1.4rem;margin-bottom:.5rem">1️⃣</div>
+      <h3 style="font-size:.9rem;font-weight:900;margin-bottom:.3rem">Neem contact op</h3>
+      <p style="font-size:.82rem;color:var(--text-muted)">Stuur een mailtje naar de eenheidsleiding met je bestelling en maat.</p>
+      <a href="mailto:eenheidsleiding@dealbatros.be" style="font-size:.75rem;font-weight:700;color:var(--blue-light);text-decoration:none;display:block;margin-top:.5rem">eenheidsleiding@dealbatros.be</a>
+    </div>
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:1.3rem">
+      <div style="font-size:1.4rem;margin-bottom:.5rem">2️⃣</div>
+      <h3 style="font-size:.9rem;font-weight:900;margin-bottom:.3rem">Betaling</h3>
+      <p style="font-size:.82rem;color:var(--text-muted)">Betaling via overschrijving of cash bij de eerstvolgende activiteit. Rekeningnummer via leiding.</p>
+    </div>
+    <div style="background:#fff;border:0.5px solid var(--border);border-radius:var(--radius);padding:1.3rem">
+      <div style="font-size:1.4rem;margin-bottom:.5rem">3️⃣</div>
+      <h3 style="font-size:.9rem;font-weight:900;margin-bottom:.3rem">Afhalen</h3>
+      <p style="font-size:.82rem;color:var(--text-muted)">Afhalen op de eerstvolgende vergadering of activiteit na bestelling en betaling.</p>
+    </div>
+  </div>
+
+  <div style="background:var(--yellow-pale);border:1px solid rgba(245,197,24,.3);border-radius:var(--radius);padding:1.1rem 1.4rem;display:flex;align-items:center;gap:.7rem;flex-wrap:wrap">
+    <i class="ti ti-shirt" style="font-size:1.2rem;color:var(--yellow-dark);flex-shrink:0"></i>
+    <p style="font-size:.82rem;color:var(--blue-dark);flex:1">
+      Ben je op zoek naar meer FOS-kledij en -materiaal? Kijk op de officiele website van FOS Open Scouting.
+    </p>
+    <a href="https://www.dealbatros.be/de-winkel/" class="btn-blue" target="_blank" style="font-size:.8rem;padding:7px 16px;white-space:nowrap">
+      <i class="ti ti-external-link"></i> FOS Webshop
+    </a>
+  </div>
+</div>
+
+<style>
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1rem;
+}
+.shop-card {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow .2s, transform .15s;
+}
+.shop-card:hover {
+  box-shadow: 0 8px 24px rgba(26,82,118,.12);
+  transform: translateY(-3px);
+}
+.shop-thumb {
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.shop-info {
+  padding: .9rem 1rem;
+}
+.shop-info h3 {
+  font-size: .9rem;
+  font-weight: 900;
+  margin-bottom: .25rem;
+}
+.shop-info p {
+  font-size: .78rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+  margin-bottom: .6rem;
+}
+.shop-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: .5rem;
+}
+.shop-badge {
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 2px 9px;
+  border-radius: 999px;
+  background: var(--blue-pale);
+  color: var(--blue);
+}
+.shop-badge.required {
+  background: #FDEBD0;
+  color: #C0392B;
+}
+.shop-price {
+  font-size: .9rem;
+  font-weight: 900;
+  color: var(--blue-dark);
+}
+.shop-sizes {
+  display: flex;
+  gap: .3rem;
+  flex-wrap: wrap;
+}
+.shop-sizes span {
+  font-size: .65rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-muted);
+}
+</style>
+
+</body>
+</html>
