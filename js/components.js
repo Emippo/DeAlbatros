@@ -23,6 +23,7 @@
       { id: 'info',     href: prefix + 'info.html',     icon: 'ti-info-circle', label: 'Info' },
       { id: 'kalender', href: prefix + 'kalender.html', icon: 'ti-calendar',    label: 'Kalender' },
       { id: 'fotos',    href: prefix + 'fotos.html',    icon: 'ti-photo',       label: "Foto's" },
+      { id: 'fosshop',  href: prefix + 'fosshop.html',  icon: 'ti-shirt',       label: 'FOS-shop' },
       { id: 'contact',  href: prefix + 'contact.html',  icon: 'ti-mail',        label: 'Contact' },
     ];
     const linksHTML = links.map(l =>
@@ -46,6 +47,7 @@
     const links = [
       { id: 'index',          href: prefix + 'index.html',          label: 'Home' },
       { id: 'takken',         href: prefix + 'takken.html',         label: 'Takken' },
+      { id: 'info',           href: prefix + 'info.html',           label: 'Info' },
       { id: 'fotos',          href: prefix + 'fotos.html',          label: "Foto's" },
       { id: 'kalender',       href: prefix + 'kalender.html',       label: 'Kalender' },
       { id: 'albatrossertje', href: prefix + 'albatrossertje.html', label: "'t Albatrossertje" },
@@ -87,9 +89,11 @@
       <div class="footer-links-col">
         <a href="${prefix}index.html">Home</a>
         <a href="${prefix}takken.html">Onze takken</a>
+        <a href="${prefix}info.html">Info</a>
         <a href="${prefix}fotos.html">Foto's</a>
         <a href="${prefix}kalender.html">Kalender</a>
         <a href="${prefix}albatrossertje.html">'t Albatrossertje</a>
+        <a href="${prefix}fosshop.html">FOS-shop</a>
         <a href="${prefix}contact.html">Contact</a>
       </div>
     </div>
@@ -105,7 +109,11 @@
     </div>
     <div class="footer-col"><h4>Info</h4>
       <div class="footer-links-col">
-        <a href="${prefix}info.html">Algemene info</a>
+        <a href="${prefix}info.html">Info overzicht</a>
+        <a href="${prefix}Info/algemeen.html">Algemene info</a>
+        <a href="${prefix}Info/kampen.html">Kampen</a>
+        <a href="${prefix}Info/leiding.html">Leiding</a>
+        <a href="${prefix}Info/vzw.html">Onze vzw</a>
         <a href="${prefix}fosshop.html">FOS-shop</a>
         <a href="https://www.dealbatros.be/onze-leiding/" target="_blank">Onze leiding</a>
         <a href="https://www.dealbatros.be/kampen/" target="_blank">Kampen</a>
