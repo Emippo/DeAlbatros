@@ -13,9 +13,9 @@
 </head>
 <body>
 
-<!-- Edit bar: enkel voor eenheidsleiding -->
+<!-- Edit bar: enkel voor leiding -->
 <div class="edit-bar" data-permission="canEditAlbums">
-  <span><i class="ti ti-shield-check"></i> Eenheidsleiding</span>
+  <span><i class="ti ti-shield-check"></i> Leiding</span>
   <button class="edit-bar-btn" onclick="window.location.href='beheer/fotos.html'">
     <i class="ti ti-photo-plus"></i> Albums beheren
   </button>
@@ -62,8 +62,15 @@
 </div>
 
 <script>
-const SUPABASE_URL = 'https://vycijnudgeqqgxpkxrih.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Y2lqbnVkZ2VxcWd4cGt4cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzczNjYsImV4cCI6MjA5MzgxMzM2Nn0.d4TQEKisc20O-LgSpxz_7QZGZREhZe0fxlVmEKVum34';
+// Wacht tot AlbatrosAuth.supabase beschikbaar is (zelfde patroon als fosshop)
+async function waitForSb(maxMs = 5000) {
+  const t = Date.now();
+  while (!window.AlbatrosAuth?.supabase) {
+    if (Date.now() - t > maxMs) throw new Error('Supabase niet beschikbaar.');
+    await new Promise(r => setTimeout(r, 100));
+  }
+  return window.AlbatrosAuth.supabase;
+}
 
 const TAK_META = {
   bevers:  { emoji:'🦫', kleur:'#E24B4A', bg:'#FDEDEC', label:'Bevers' },
@@ -84,24 +91,21 @@ async function laadAlbums() {
   document.getElementById('albumsError').style.display = 'none';
   document.getElementById('albumsEmpty').style.display = 'none';
 
+  let sb;
+  try { sb = await waitForSb(); } catch(e) {
+    document.getElementById('albumsLoading').style.display = 'none';
+    document.getElementById('albumsError').style.display = 'block';
+    return;
+  }
+
   try {
-    // Bepaal of gebruiker ingelogd is (voor niet-openbare albums)
     const isLoggedIn = window.AlbatrosAuth?.isLoggedIn?.() || false;
+    let query = sb.from('albums').select('*').order('datum', { ascending: false });
+    if (!isLoggedIn) query = query.eq('openbaar', true);
 
-    let url = `${SUPABASE_URL}/rest/v1/albums?select=*&order=datum.desc`;
-    if (!isLoggedIn) url += '&openbaar=eq.true';
-
-    const res = await fetch(url, {
-      headers: {
-        'apikey': SUPABASE_KEY,
-        'Authorization': `Bearer ${SUPABASE_KEY}`,
-        'Content-Type': 'application/json'
-      }
-    });
-
-    if (!res.ok) throw new Error('Fetch mislukt: ' + res.status);
-    alleAlbums = await res.json();
-
+    const { data, error } = await query;
+    if (error) throw error;
+    alleAlbums = data || [];
     toonAlbums(activeTak);
   } catch (e) {
     console.error('Albums laden mislukt:', e);
@@ -176,12 +180,12 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
   });
 });
 
-// Laad albums zodra auth klaar is (voor eventuele privé-albums)
-document.addEventListener('albatros-auth-ready', laadAlbums);
+// Start direct — waitForSb() pollt tot auth.js klaar is
+laadAlbums();
 
-// Fallback: als auth al klaar was vóór dit script laadde
-document.addEventListener('DOMContentLoaded', () => {
-  if (window.AlbatrosAuth?.isLoggedIn !== undefined) laadAlbums();
+// Herlaad albums na in- of uitloggen (voor privé-albums)
+document.addEventListener('albatros-auth-ready', () => {
+  if (alleAlbums.length > 0) laadAlbums(); // enkel herladen als al geladen was
 });
 </script>
 
