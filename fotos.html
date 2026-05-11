@@ -63,7 +63,7 @@
 
 <script>
 const SUPABASE_URL = 'https://vycijnudgeqqgxpkxrih.supabase.co';
-const SUPABASE_KEY = 'JOUW_ANON_KEY_HIER';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Y2lqbnVkZ2VxcWd4cGt4cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzczNjYsImV4cCI6MjA5MzgxMzM2Nn0.d4TQEKisc20O-LgSpxz_7QZGZREhZe0fxlVmEKVum34';
 
 const TAK_META = {
   bevers:  { emoji:'🦫', kleur:'#E24B4A', bg:'#FDEDEC', label:'Bevers' },
@@ -177,9 +177,11 @@ document.querySelectorAll('.filter-btn').forEach(btn => {
 });
 
 // Laad albums zodra auth klaar is (voor eventuele privé-albums)
+document.addEventListener('albatros-auth-ready', laadAlbums);
+
+// Fallback: als auth al klaar was vóór dit script laadde
 document.addEventListener('DOMContentLoaded', () => {
-  // Wacht even zodat auth.js tijd heeft te initialiseren
-  setTimeout(laadAlbums, 600);
+  if (window.AlbatrosAuth?.isLoggedIn !== undefined) laadAlbums();
 });
 </script>
 
