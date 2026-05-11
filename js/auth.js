@@ -160,6 +160,9 @@ window.AlbatrosAuth = {
         userChip.style.display = 'none';
       }
     }
+
+    // Event zodat pagina's weten wanneer auth écht klaar is
+    document.dispatchEvent(new CustomEvent('albatros-auth-ready', { detail: { loggedIn } }));
   }
 };
 
