@@ -7,7 +7,7 @@ const SUPABASE_URL = 'https://vycijnudgeqqgxpkxrih.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Y2lqbnVkZ2VxcWd4cGt4cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzczNjYsImV4cCI6MjA5MzgxMzM2Nn0.d4TQEKisc20O-LgSpxz_7QZGZREhZe0fxlVmEKVum34';
 
 // Role definitions
-// Roles zijn opgeslagen in user_metadata.role in Supabase
+// Rollen zijn opgeslagen in user_metadata.role in Supabase
 // Mogelijke waarden: 'eenheidsleiding', 'bevers_leiding', 'welpen_leiding',
 //                   'jvg_leiding', 'vg_leiding', 'seniors_leiding', 'stam_leiding'
 
@@ -77,12 +77,17 @@ window.AlbatrosAuth = {
       console.error('Auth init mislukt:', e);
       return;
     }
+
     this.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
     // Check existing session
-    const { data: { session } } = await this.supabase.auth.getSession();
-    if (session?.user) {
-      this._setUser(session.user);
+    try {
+      const { data: { session } } = await this.supabase.auth.getSession();
+      if (session?.user) {
+        this._setUser(session.user);
+      }
+    } catch (e) {
+      console.error('Sessie ophalen mislukt:', e);
     }
 
     // Listen for auth changes
@@ -119,8 +124,16 @@ window.AlbatrosAuth = {
 
   _setUser(user) {
     this.user = user;
-    this.role = user.user_metadata?.role || 'eenheidsleiding'; // fallback for dev
-    this.permissions = ROLE_PERMISSIONS[this.role] || ROLE_PERMISSIONS['eenheidsleiding'];
+    // GEEN fallback naar eenheidsleiding — als de rol ontbreekt, geen rechten
+    const role = user.user_metadata?.role;
+    if (!role || !ROLE_PERMISSIONS[role]) {
+      console.warn(`Onbekende of ontbrekende rol: "${role}". Geen rechten toegekend.`);
+      this.role = null;
+      this.permissions = null;
+    } else {
+      this.role = role;
+      this.permissions = ROLE_PERMISSIONS[role];
+    }
   },
 
   _clearUser() {
@@ -195,23 +208,47 @@ window.AlbatrosAuth = {
 };
 
 // ── Login Modal helpers ──────────────────────────────────────
+// Veilige wrappers die wachten tot de DOM klaar is
+
 function openLogin() {
-  document.getElementById('loginModal').style.display = 'flex';
-  document.getElementById('loginEmail').focus();
+  const modal = document.getElementById('loginModal');
+  if (!modal) return;
+  modal.style.display = 'flex';
+  // Kleine vertraging zodat de browser de display-wijziging verwerkt voor de focus
+  setTimeout(() => document.getElementById('loginEmail')?.focus(), 50);
 }
 
 function closeLogin() {
-  document.getElementById('loginModal').style.display = 'none';
-  document.getElementById('loginError').textContent = '';
+  const modal = document.getElementById('loginModal');
+  if (!modal) return;
+  modal.style.display = 'none';
+  const err = document.getElementById('loginError');
+  if (err) err.textContent = '';
+  const pw = document.getElementById('loginPassword');
+  if (pw) pw.value = '';
 }
 
 async function doLogin() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const password = document.getElementById('loginPassword').value;
+  const emailEl = document.getElementById('loginEmail');
+  const passwordEl = document.getElementById('loginPassword');
   const btn = document.getElementById('loginSubmitBtn');
   const err = document.getElementById('loginError');
 
-  if (!email || !password) { err.textContent = 'Vul e-mail en wachtwoord in.'; return; }
+  if (!emailEl || !passwordEl || !btn || !err) return;
+
+  const email = emailEl.value.trim();
+  const password = passwordEl.value;
+
+  if (!email || !password) {
+    err.textContent = 'Vul e-mail en wachtwoord in.';
+    return;
+  }
+
+  // Valideer e-mailformaat
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    err.textContent = 'Vul een geldig e-mailadres in.';
+    return;
+  }
 
   btn.disabled = true;
   btn.textContent = 'Bezig…';
@@ -221,20 +258,36 @@ async function doLogin() {
     await AlbatrosAuth.login(email, password);
     closeLogin();
   } catch (e) {
-    err.textContent = e.message || 'Inloggen mislukt. Probeer opnieuw.';
+    // Vertaal veelvoorkomende Supabase-foutmeldingen naar Nederlands
+    const msg = e.message || '';
+    if (msg.includes('Invalid login credentials')) {
+      err.textContent = 'Ongeldig e-mailadres of wachtwoord.';
+    } else if (msg.includes('Email not confirmed')) {
+      err.textContent = 'Je e-mailadres is nog niet bevestigd. Controleer je inbox.';
+    } else if (msg.includes('Too many requests')) {
+      err.textContent = 'Te veel pogingen. Wacht even en probeer opnieuw.';
+    } else {
+      err.textContent = msg || 'Inloggen mislukt. Probeer opnieuw.';
+    }
   } finally {
     btn.disabled = false;
     btn.textContent = 'Inloggen';
   }
 }
 
-// Allow Enter key in login form
+// Toetsenbord: Enter om in te loggen, Escape om te sluiten
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter' && document.getElementById('loginModal')?.style.display === 'flex') {
-    doLogin();
-  }
+  const modal = document.getElementById('loginModal');
+  if (!modal || modal.style.display !== 'flex') return;
+  if (e.key === 'Enter') doLogin();
   if (e.key === 'Escape') closeLogin();
 });
 
-// Init on load
-document.addEventListener('DOMContentLoaded', () => AlbatrosAuth.init());
+// Init zodra de DOM klaar is
+// components.js laadt auth.js dynamisch, dus DOMContentLoaded is al voorbij.
+// We controleren de readyState en initialiseren meteen of wachten.
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', () => AlbatrosAuth.init());
+} else {
+  AlbatrosAuth.init();
+}
