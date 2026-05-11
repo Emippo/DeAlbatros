@@ -4,7 +4,7 @@
 // ============================================================
 
 const SUPABASE_URL = 'https://vycijnudgeqqgxpkxrih.supabase.co';
-const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Y2lqbnVkZ2VxcWd4cGt4cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzczNjYsImV4cCI6MjA5MzgxMzM2Nn0.d4TQEKisc20O-LgSpxz_7QZGZREhZe0fxlVmEKVum34';  
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Y2lqbnVkZ2VxcWd4cGt4cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzczNjYsImV4cCI6MjA5MzgxMzM2Nn0.d4TQEKisc20O-LgSpxz_7QZGZREhZe0fxlVmEKVum34';
 
 // Role definitions
 // Roles zijn opgeslagen in user_metadata.role in Supabase
@@ -71,9 +71,11 @@ window.AlbatrosAuth = {
   supabase: null,
 
   async init() {
-    // Load Supabase if not loaded
-    if (!window.supabase) {
+    try {
       await this._loadSupabase();
+    } catch (e) {
+      console.error('Auth init mislukt:', e);
+      return;
     }
     this.supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
@@ -97,11 +99,20 @@ window.AlbatrosAuth = {
   },
 
   _loadSupabase() {
-    return new Promise((resolve) => {
-      if (document.querySelector('script[src*="supabase"]')) { resolve(); return; }
+    return new Promise((resolve, reject) => {
+      if (window.supabase?.createClient) { resolve(); return; }
+      document.querySelectorAll('script[data-supabase]').forEach(s => s.remove());
       const s = document.createElement('script');
-      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js';
-      s.onload = resolve;
+      s.setAttribute('data-supabase', '1');
+      s.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
+      s.onload = () => {
+        if (window.supabase?.createClient) {
+          resolve();
+        } else {
+          reject(new Error('Supabase createClient niet gevonden na laden.'));
+        }
+      };
+      s.onerror = () => reject(new Error('Supabase script kon niet geladen worden.'));
       document.head.appendChild(s);
     });
   },
