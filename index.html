@@ -26,33 +26,26 @@
   <div class="hero-logo"><img src="img/logo.png" alt=""></div>
 </div>
 
-<!-- Admin edit bar (enkel zichtbaar als ingelogd met juiste rol) -->
+<!-- Admin edit bar -->
 <div class="edit-bar" data-permission="canManageEvents">
   <span><i class="ti ti-shield-check"></i> Eenheidsleiding</span>
-  <button class="edit-bar-btn" onclick="alert('Nieuwsbeheer — koppel hier je CMS')"><i class="ti ti-edit"></i> Nieuws bewerken</button>
-  <button class="edit-bar-btn" onclick="alert('Evenementenbeheer — koppel hier je CMS')"><i class="ti ti-calendar-plus"></i> Evenement toevoegen</button>
+  <button class="edit-bar-btn" onclick="openNieuwsModal()"><i class="ti ti-plus"></i> Nieuwsbericht toevoegen</button>
+  <button class="edit-bar-btn" onclick="window.location.href='kalender.html'"><i class="ti ti-calendar-plus"></i> Evenementen beheren</button>
 </div>
 
+<!-- Nieuws sectie -->
 <div class="section">
   <div class="section-label">Nieuws</div>
   <div class="section-title">Wat er beweegt</div>
   <div class="section-sub">Recente activiteiten en aankondigingen van onze groep.</div>
-  <div class="nieuws-card">
-    <div class="nieuws-icon">🎡</div>
-    <div><h3>Pretpark — Welpen, JVG, VG &amp; Seniors</h3><p>De welpen, JVG's, VG's en Seniors gaan naar Walibi! Schrijf je snel in.</p><a href="https://keeo.fos.be" class="nieuws-link" target="_blank">Inschrijven →</a></div>
-  </div>
-  <div class="nieuws-card">
-    <div class="nieuws-icon">🐬</div>
-    <div><h3>Pretpark — Bevers 2026</h3><p>De bevers zakken af naar Boudewijn Seapark voor een spetterend dagje uit.</p><a href="https://keeo.fos.be" class="nieuws-link" target="_blank">Inschrijven →</a></div>
-  </div>
-  <div class="nieuws-card">
-    <div class="nieuws-icon">📋</div>
-    <div><h3>Lid inschrijven via Keeo</h3><p>Gegevens bekijken of je kind inschrijven? Dat doe je op het ouderportaal van FOS.</p><a href="http://www.keeo.fos.be" class="nieuws-link" target="_blank">Naar Keeo →</a></div>
+  <div id="nieuwsLijst">
+    <div class="home-loading"><i class="ti ti-loader-2 spin"></i> Laden…</div>
   </div>
 </div>
 
 <div class="divider"></div>
 
+<!-- Takken -->
 <div class="section">
   <div class="section-label">Onze takken</div>
   <div class="section-title">Voor elke leeftijd</div>
@@ -69,13 +62,14 @@
 
 <div class="divider"></div>
 
+<!-- Kalender -->
 <div class="section">
   <div class="section-label">Kalender</div>
   <div class="section-title">Komende activiteiten</div>
   <div class="section-sub">Hou onze planning in het oog.</div>
-  <div class="kalender-card"><div class="kal-date"><span class="day">17</span><span class="mon">Mei</span></div><div class="kal-info"><h3>Weekendactiviteit Bevers</h3><p>Boudewijn Seapark</p></div><div class="kal-tag">Bevers</div></div>
-  <div class="kalender-card"><div class="kal-date"><span class="day">24</span><span class="mon">Mei</span></div><div class="kal-info"><h3>Walibi — alle takken</h3><p>Grote uitstap</p></div><div class="kal-tag">Alle takken</div></div>
-  <div class="kalender-card"><div class="kal-date"><span class="day">12</span><span class="mon">Jul</span></div><div class="kal-info"><h3>Zomerkamp 2026</h3><p>Meer info volgt</p></div><div class="kal-tag">Kamp</div></div>
+  <div id="homeKalender">
+    <div class="home-loading"><i class="ti ti-loader-2 spin"></i> Laden…</div>
+  </div>
   <p style="margin-top:.8rem"><a href="kalender.html" style="font-size:.82rem;font-weight:700;color:var(--blue-light);text-decoration:none">Volledige kalender bekijken →</a></p>
 </div>
 
@@ -95,6 +89,344 @@
     <a href="http://www.keeo.fos.be" class="btn-blue" target="_blank">Inschrijven</a>
   </div>
 </div>
+
+<!-- ── Nieuws Modal ── -->
+<div id="nieuwsModal" class="modal" onclick="if(event.target===this)closeNieuwsModal()">
+  <div class="modal-content event-modal-box">
+    <button class="close-btn" onclick="closeNieuwsModal()"><i class="ti ti-x"></i></button>
+    <h2 id="nieuwsModalTitle">Nieuwsbericht toevoegen</h2>
+
+    <div style="display:grid;grid-template-columns:72px 1fr;gap:.8rem">
+      <div class="login-field">
+        <label>Emoji</label>
+        <input type="text" id="nwEmoji" placeholder="📢" maxlength="4">
+      </div>
+      <div class="login-field">
+        <label>Titel</label>
+        <input type="text" id="nwTitel" placeholder="bv. Zomerkamp inschrijvingen open">
+      </div>
+    </div>
+    <div class="login-field">
+      <label>Tekst</label>
+      <input type="text" id="nwTekst" placeholder="Korte beschrijving van het bericht">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:.8rem">
+      <div class="login-field">
+        <label>Link URL <span style="font-weight:400;opacity:.6">(optioneel)</span></label>
+        <input type="url" id="nwLinkUrl" placeholder="https://…">
+      </div>
+      <div class="login-field">
+        <label>Link label <span style="font-weight:400;opacity:.6">(optioneel)</span></label>
+        <input type="text" id="nwLinkLabel" placeholder="bv. Inschrijven →">
+      </div>
+    </div>
+    <div class="login-field">
+      <label>Volgorde <span style="font-weight:400;opacity:.6">(lager = bovenaan)</span></label>
+      <input type="number" id="nwVolgorde" placeholder="0" min="0" style="width:100px">
+    </div>
+
+    <div id="nieuwsModalError" class="login-error"></div>
+
+    <div style="display:flex;gap:.6rem;margin-top:.4rem">
+      <button id="nieuwsSaveBtn" class="btn-login-submit" onclick="saveNieuws()" style="flex:1">
+        <i class="ti ti-check"></i> Opslaan
+      </button>
+      <button id="nieuwsDeleteBtn" class="btn-delete" onclick="deleteNieuws()" style="display:none">
+        <i class="ti ti-trash"></i> Verwijderen
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { display: inline-block; animation: spin .8s linear infinite; }
+.home-loading {
+  font-size: .85rem; color: var(--text-muted);
+  display: flex; align-items: center; gap: .5rem; padding: .5rem 0;
+}
+
+/* Nieuws edit knop — alleen zichtbaar als ingelogd */
+.nieuws-edit-btn {
+  display: none;
+  background: none;
+  border: 0.5px solid var(--border);
+  border-radius: 8px;
+  padding: 4px 9px;
+  font-size: .7rem;
+  font-weight: 700;
+  color: var(--blue-light);
+  cursor: pointer;
+  align-items: center;
+  gap: .3rem;
+  flex-shrink: 0;
+  margin-left: auto;
+  transition: background .15s;
+}
+.nieuws-edit-btn:hover { background: var(--blue-pale); }
+body.logged-in .nieuws-edit-btn { display: flex; }
+
+/* Event / nieuws modal box */
+.event-modal-box {
+  background: #fff;
+  border-radius: 20px;
+  width: min(92%, 460px);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+  box-shadow: 0 24px 60px rgba(0,0,0,.25);
+  animation: modalSlideIn .2s ease;
+}
+.event-modal-box h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: var(--blue-dark);
+  margin-bottom: -.2rem;
+}
+.btn-delete {
+  background: #FFF0F0;
+  border: 1.5px solid #F5C6C6;
+  color: #C0392B;
+  border-radius: 10px;
+  padding: .75rem 1.2rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: .88rem;
+  font-weight: 900;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  transition: background .15s;
+}
+.btn-delete:hover { background: #FFE0E0; }
+</style>
+
+<script>
+// ── Helpers ──────────────────────────────────────────────────
+const MAANDEN_HOME = ['Jan','Feb','Mrt','Apr','Mei','Jun','Jul','Aug','Sep','Okt','Nov','Dec'];
+
+function esc(str) {
+  return String(str || '')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+async function waitForSb(maxMs = 5000) {
+  const start = Date.now();
+  while (!window.AlbatrosAuth?.supabase) {
+    if (Date.now() - start > maxMs) throw new Error('Supabase niet beschikbaar.');
+    await new Promise(r => setTimeout(r, 100));
+  }
+  return window.AlbatrosAuth.supabase;
+}
+
+// ── Nieuws laden ─────────────────────────────────────────────
+let alleNieuws   = [];
+let nieuwsBewerkId = null;
+
+async function laadNieuws() {
+  const container = document.getElementById('nieuwsLijst');
+  let sb;
+  try { sb = await waitForSb(); } catch(e) {
+    container.innerHTML = '<p style="font-size:.82rem;color:var(--text-muted)">Nieuws kon niet geladen worden.</p>';
+    return;
+  }
+
+  const { data, error } = await sb
+    .from('nieuws')
+    .select('*')
+    .order('volgorde', { ascending: true })
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    console.error('[Nieuws]', error);
+    container.innerHTML = '<p style="font-size:.82rem;color:var(--text-muted)">Nieuws kon niet geladen worden.</p>';
+    return;
+  }
+
+  alleNieuws = data || [];
+
+  if (!alleNieuws.length) {
+    container.innerHTML = '<p style="font-size:.82rem;color:var(--text-muted)">Geen nieuws op dit moment.</p>';
+    return;
+  }
+
+  container.innerHTML = alleNieuws.map(n => `
+    <div class="nieuws-card">
+      <div class="nieuws-icon">${esc(n.emoji)}</div>
+      <div style="flex:1">
+        <h3>${esc(n.titel)}</h3>
+        ${n.tekst ? `<p>${esc(n.tekst)}</p>` : ''}
+        ${n.link_url ? `<a href="${esc(n.link_url)}" class="nieuws-link" target="_blank">${esc(n.link_label || 'Meer info →')}</a>` : ''}
+      </div>
+      <button class="nieuws-edit-btn" onclick="openNieuwsModal('${n.id}')">
+        <i class="ti ti-pencil"></i> Bewerken
+      </button>
+    </div>`).join('');
+}
+
+// ── Kalender laden ───────────────────────────────────────────
+async function laadHomeKalender() {
+  const container = document.getElementById('homeKalender');
+  let sb;
+  try { sb = await waitForSb(); } catch(e) {
+    container.innerHTML = '<p style="font-size:.82rem;color:var(--text-muted)">Kon kalender niet laden.</p>';
+    return;
+  }
+
+  const nu = new Date().toISOString().split('T')[0];
+  const { data, error } = await sb
+    .from('evenementen')
+    .select('*')
+    .gte('datum', nu)
+    .order('datum', { ascending: true })
+    .limit(4);
+
+  if (error || !data?.length) {
+    container.innerHTML = '<p style="font-size:.82rem;color:var(--text-muted)">Geen komende activiteiten.</p>';
+    return;
+  }
+
+  container.innerHTML = data.map(ev => {
+    const d   = new Date(ev.datum + 'T00:00:00');
+    const dag = String(d.getDate()).padStart(2, '0');
+    const mnd = MAANDEN_HOME[d.getMonth()];
+    return `
+      <div class="kalender-card">
+        <div class="kal-date"><span class="day">${dag}</span><span class="mon">${mnd}</span></div>
+        <div class="kal-info">
+          <h3>${esc(ev.titel)}</h3>
+          ${ev.beschrijving ? `<p>${esc(ev.beschrijving)}</p>` : ''}
+        </div>
+        <div class="kal-tag">${esc(ev.tak)}</div>
+      </div>`;
+  }).join('');
+}
+
+// ── Nieuws modal ─────────────────────────────────────────────
+function openNieuwsModal(id = null) {
+  nieuwsBewerkId = id;
+  const modal     = document.getElementById('nieuwsModal');
+  const deleteBtn = document.getElementById('nieuwsDeleteBtn');
+  const err       = document.getElementById('nieuwsModalError');
+  err.textContent = '';
+
+  if (id) {
+    const n = alleNieuws.find(x => x.id === id);
+    if (!n) return;
+    document.getElementById('nieuwsModalTitle').textContent  = 'Nieuwsbericht bewerken';
+    document.getElementById('nwEmoji').value      = n.emoji || '';
+    document.getElementById('nwTitel').value      = n.titel || '';
+    document.getElementById('nwTekst').value      = n.tekst || '';
+    document.getElementById('nwLinkUrl').value    = n.link_url || '';
+    document.getElementById('nwLinkLabel').value  = n.link_label || '';
+    document.getElementById('nwVolgorde').value   = n.volgorde ?? 0;
+    deleteBtn.style.display = 'flex';
+  } else {
+    document.getElementById('nieuwsModalTitle').textContent  = 'Nieuwsbericht toevoegen';
+    document.getElementById('nwEmoji').value      = '📢';
+    document.getElementById('nwTitel').value      = '';
+    document.getElementById('nwTekst').value      = '';
+    document.getElementById('nwLinkUrl').value    = '';
+    document.getElementById('nwLinkLabel').value  = '';
+    document.getElementById('nwVolgorde').value   = '';
+    deleteBtn.style.display = 'none';
+  }
+
+  modal.style.display = 'flex';
+  setTimeout(() => document.getElementById('nwTitel')?.focus(), 50);
+}
+
+function closeNieuwsModal() {
+  document.getElementById('nieuwsModal').style.display = 'none';
+  nieuwsBewerkId = null;
+}
+
+async function saveNieuws() {
+  const titel     = document.getElementById('nwTitel').value.trim();
+  const emoji     = document.getElementById('nwEmoji').value.trim() || '📢';
+  const tekst     = document.getElementById('nwTekst').value.trim();
+  const link_url  = document.getElementById('nwLinkUrl').value.trim();
+  const link_label = document.getElementById('nwLinkLabel').value.trim();
+  const volgorde  = parseInt(document.getElementById('nwVolgorde').value) || 0;
+  const btn       = document.getElementById('nieuwsSaveBtn');
+  const err       = document.getElementById('nieuwsModalError');
+
+  err.textContent = '';
+  if (!titel) { err.textContent = 'Vul een titel in.'; return; }
+
+  btn.disabled    = true;
+  btn.textContent = 'Bezig…';
+
+  try {
+    const sb = window.AlbatrosAuth?.supabase;
+    if (!sb) throw new Error('Niet verbonden. Herlaad de pagina.');
+
+    const payload = {
+      titel,
+      emoji,
+      tekst: tekst || null,
+      link_url: link_url || null,
+      link_label: link_label || null,
+      volgorde
+    };
+
+    let error;
+    if (nieuwsBewerkId) {
+      ({ error } = await sb.from('nieuws').update(payload).eq('id', nieuwsBewerkId));
+    } else {
+      ({ error } = await sb.from('nieuws').insert(payload));
+    }
+
+    if (error) throw error;
+    closeNieuwsModal();
+    await laadNieuws();
+  } catch(e) {
+    err.textContent = e.message || 'Opslaan mislukt.';
+  } finally {
+    btn.disabled  = false;
+    btn.innerHTML = '<i class="ti ti-check"></i> Opslaan';
+  }
+}
+
+async function deleteNieuws() {
+  if (!nieuwsBewerkId) return;
+  const n = alleNieuws.find(x => x.id === nieuwsBewerkId);
+  if (!confirm(`"${n?.titel || 'dit bericht'}" verwijderen?`)) return;
+
+  const btn = document.getElementById('nieuwsDeleteBtn');
+  btn.disabled = true;
+
+  try {
+    const sb = window.AlbatrosAuth?.supabase;
+    if (!sb) throw new Error('Niet verbonden.');
+    const { error } = await sb.from('nieuws').delete().eq('id', nieuwsBewerkId);
+    if (error) throw error;
+    closeNieuwsModal();
+    await laadNieuws();
+  } catch(e) {
+    document.getElementById('nieuwsModalError').textContent = e.message || 'Verwijderen mislukt.';
+    btn.disabled = false;
+  }
+}
+
+// Escape sluit modal
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeNieuwsModal();
+  }
+});
+
+// ── Start ────────────────────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+  setTimeout(() => {
+    laadNieuws();
+    laadHomeKalender();
+  }, 300);
+});
+</script>
 
 </body>
 </html>
