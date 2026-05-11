@@ -51,7 +51,7 @@
       { id: 'fotos',          href: prefix + 'fotos.html',          label: "Foto's" },
       { id: 'kalender',       href: prefix + 'kalender.html',       label: 'Kalender' },
       { id: 'albatrossertje', href: prefix + 'albatrossertje.html', label: "'t Albatrossertje" },
-      { id: 'contact',        href: prefix + 'contact.html',        label: 'Contact' },
+      { id: 'fosshop',        href: prefix + 'fosshop.html',        label: 'Fos-Shop' },
     ];
     const linksHTML = links.map(l =>
       `<a href="${l.href}" class="nav-link${activePage === l.id ? ' active' : ''}">${l.label}</a>`
@@ -94,7 +94,6 @@
         <a href="${prefix}kalender.html">Kalender</a>
         <a href="${prefix}albatrossertje.html">'t Albatrossertje</a>
         <a href="${prefix}fosshop.html">FOS-shop</a>
-        <a href="${prefix}contact.html">Contact</a>
       </div>
     </div>
     <div class="footer-col"><h4>Takken</h4>
@@ -114,7 +113,6 @@
         <a href="${prefix}Info/kampen.html">Kampen</a>
         <a href="${prefix}Info/leiding.html">Leiding</a>
         <a href="${prefix}Info/vzw.html">Onze vzw</a>
-        <a href="${prefix}fosshop.html">FOS-shop</a>
         <a href="https://www.dealbatros.be/onze-leiding/" target="_blank">Onze leiding</a>
         <a href="https://www.dealbatros.be/kampen/" target="_blank">Kampen</a>
       </div>
