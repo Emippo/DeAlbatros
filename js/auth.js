@@ -4,7 +4,7 @@
 // ============================================================
 
 const SUPABASE_URL = 'https://vycijnudgeqqgxpkxrih.supabase.co';
-const SUPABASE_KEY = 'sb_publishable_J21o5TVTub4LzL_xj6iNEA_lDqWY6ed';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Y2lqbnVkZ2VxcWd4cGt4cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzczNjYsImV4cCI6MjA5MzgxMzM2Nn0.d4TQEKisc20O-LgSpxz_7QZGZREhZe0fxlVmEKVum34';  
 
 // Role definitions
 // Roles zijn opgeslagen in user_metadata.role in Supabase
