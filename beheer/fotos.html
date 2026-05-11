@@ -169,7 +169,7 @@
 
 <script>
 const SUPABASE_URL = 'https://vycijnudgeqqgxpkxrih.supabase.co';
-const SUPABASE_KEY = 'JOUW_ANON_KEY_HIER';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZ5Y2lqbnVkZ2VxcWd4cGt4cmloIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMzczNjYsImV4cCI6MjA5MzgxMzM2Nn0.d4TQEKisc20O-LgSpxz_7QZGZREhZe0fxlVmEKVum34';
 
 const TAK_META = {
   bevers:  { emoji:'🦫', kleur:'#E24B4A', bg:'#FDEDEC', label:'Bevers' },
@@ -192,15 +192,21 @@ function checkToegang() {
   document.getElementById('toegangGeblokkeerd').style.display = ingelogd ? 'none' : 'flex';
   document.getElementById('beheerPaneel').style.display = ingelogd ? 'block' : 'none';
   if (ingelogd) {
-    authToken = window.AlbatrosAuth?.supabase?.auth?.session?.()?.access_token
-      || SUPABASE_KEY;
-    laadAlbums();
+    // Supabase v2: sessie zit in getSession(), niet in session()
+    window.AlbatrosAuth.supabase.auth.getSession().then(({ data }) => {
+      authToken = data?.session?.access_token || SUPABASE_KEY;
+      laadAlbums();
+    });
   }
 }
 
-// Wacht op auth initialisatie
-setTimeout(checkToegang, 800);
+// Wacht op auth initialisatie via event — geen fragiele setTimeout nodig
 document.addEventListener('albatros-auth-ready', checkToegang);
+
+// Fallback: als auth al klaar was vóór dit script laadde
+if (window.AlbatrosAuth?.isLoggedIn !== undefined) {
+  checkToegang();
+}
 
 // ── Tabs ──────────────────────────────────────────────────────
 function toonTab(naam, btn) {
