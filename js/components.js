@@ -109,10 +109,10 @@
     <div class="footer-col"><h4>Info</h4>
       <div class="footer-links-col">
         <a href="${prefix}info.html">Info overzicht</a>
-        <a href="${prefix}Info/algemeen.html">Algemene info</a>
-        <a href="${prefix}Info/kampen.html">Kampen</a>
-        <a href="${prefix}Info/leiding.html">Leiding</a>
-        <a href="${prefix}Info/vzw.html">Onze vzw</a>
+        <a href="${prefix}info/algemeen.html">Algemene info</a>
+        <a href="${prefix}info/kampen.html">Kampen</a>
+        <a href="${prefix}info/leiding.html">Leiding</a>
+        <a href="${prefix}info/vzw.html">Onze vzw</a>
         <a href="https://www.dealbatros.be/onze-leiding/" target="_blank">Onze leiding</a>
         <a href="https://www.dealbatros.be/kampen/" target="_blank">Kampen</a>
       </div>
