@@ -380,8 +380,8 @@ function handleFotoKeuze(event) {
   const file = event.target.files[0];
   if (!file) return;
 
-  if (file.size > 2 * 1024 * 1024) {
-    alert('Foto is te groot. Maximaal 2MB toegestaan.');
+  if (file.size > 10 * 1024 * 1024) {
+    alert('Foto is te groot. Maximaal 10 MB toegestaan.');
     event.target.value = '';
     return;
   }
