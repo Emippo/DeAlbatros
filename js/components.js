@@ -174,7 +174,7 @@
     </div>
     <div class="login-field">
       <label>Wachtwoord</label>
-      <input type="password" id="loginPassword" placeholder="••••••••" autocomplete="current-password">
+      <input type="password" id="loginPassword" placeholder="Wachtwoord" autocomplete="current-password">
     </div>
     <div id="loginError" class="login-error"></div>
     <button id="loginSubmitBtn" class="btn-login-submit" onclick="doLogin()">
