@@ -23,7 +23,7 @@
       { id: 'info',     href: prefix + 'info.html',     icon: 'ti-info-circle', label: 'Info' },
       { id: 'kalender', href: prefix + 'kalender.html', icon: 'ti-calendar',    label: 'Kalender' },
       { id: 'fotos',    href: prefix + 'fotos.html',    icon: 'ti-photo',       label: "Foto's" },
-      { id: 'contact',  href: prefix + 'contact.html',  icon: 'ti-mail',        label: 'Contact' },
+      { id: 'fosshop',  href: prefix + 'fosshop.html',  icon: 'ti-mail',        label: 'FOS-Shop' },
     ];
     const linksHTML = links.map(l =>
       `<a href="${l.href}" class="topbar-link${activePage === l.id ? ' active' : ''}"><i class="ti ${l.icon}"></i>${l.label}</a>`
