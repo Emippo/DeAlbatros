@@ -38,12 +38,12 @@
       </a>`).join('');
 
     const takken = [
-      { href: prefix + 'Takken/bevers.html',  kleur: '#E24B4A', emoji: '🦫', label: 'Bevers' },
-      { href: prefix + 'Takken/welpen.html',  kleur: '#EF9F27', emoji: '🐺', label: 'Welpen' },
-      { href: prefix + 'Takken/jvg.html',     kleur: '#2D6A1F', emoji: '🌿', label: "JVG's" },
-      { href: prefix + 'Takken/vg.html',      kleur: '#1A5276', emoji: '⚜️', label: "VG's" },
-      { href: prefix + 'Takken/seniors.html', kleur: '#7F77DD', emoji: '🔥', label: 'Seniors' },
-      { href: prefix + 'Takken/stam.html',    kleur: '#5a5a6a', emoji: '🏕️', label: 'Stam' },
+      { href: prefix + 'takken/bevers.html',  kleur: '#E24B4A', emoji: '🦫', label: 'Bevers' },
+      { href: prefix + 'takken/welpen.html',  kleur: '#EF9F27', emoji: '🐺', label: 'Welpen' },
+      { href: prefix + 'takken/jvg.html',     kleur: '#2D6A1F', emoji: '🌿', label: "JVG's" },
+      { href: prefix + 'takken/vg.html',      kleur: '#1A5276', emoji: '⚜️', label: "VG's" },
+      { href: prefix + 'takken/seniors.html', kleur: '#7F77DD', emoji: '🔥', label: 'Seniors' },
+      { href: prefix + 'takken/stam.html',    kleur: '#5a5a6a', emoji: '🏕️', label: 'Stam' },
     ];
     const takkenLinks = takken.map(t => `
       <a href="${t.href}" class="sidebar-tak-link">
@@ -128,12 +128,12 @@
     </div>
     <div class="footer-col"><h4>Takken</h4>
       <div class="footer-links-col">
-        <a href="${prefix}Takken/bevers.html">Bevers</a>
-        <a href="${prefix}Takken/welpen.html">Welpen</a>
-        <a href="${prefix}Takken/jvg.html">JVG's</a>
-        <a href="${prefix}Takken/vg.html">VG's</a>
-        <a href="${prefix}Takken/seniors.html">Seniors</a>
-        <a href="${prefix}Takken/stam.html">Stam</a>
+        <a href="${prefix}takken/bevers.html">Bevers</a>
+        <a href="${prefix}takken/welpen.html">Welpen</a>
+        <a href="${prefix}takken/jvg.html">JVG's</a>
+        <a href="${prefix}takken/vg.html">VG's</a>
+        <a href="${prefix}takken/seniors.html">Seniors</a>
+        <a href="${prefix}takken/stam.html">Stam</a>
       </div>
     </div>
     <div class="footer-col"><h4>Info</h4>
