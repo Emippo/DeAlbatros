@@ -115,39 +115,7 @@
     </a>
   </div>
 </div>
-
-<script>
-function toggleSidebar() {
-  const open = document.getElementById('sidebar').classList.toggle('open');
-  document.getElementById('sidebarOverlay').classList.toggle('open', open);
-  document.getElementById('hamburgerBtn').classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
-}
-function closeSidebar() {
-  document.getElementById('sidebar').classList.remove('open');
-  document.getElementById('sidebarOverlay').classList.remove('open');
-  document.getElementById('hamburgerBtn').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-// Logo verkleinen bij scrollen
-(function() {
-  const nav    = document.getElementById('mainNav');
-  const img    = document.getElementById('navLogoImg');
-  const txt    = document.getElementById('navLogoText');
-  let ticking  = false;
-  window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const scrolled = window.scrollY > 60;
-        nav.classList.toggle('nav-scrolled', scrolled);
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
-})();
-<\/script>`;
+`;
   }
 
   // ── Footer ───────────────────────────────────────────────
@@ -255,6 +223,42 @@ function closeSidebar() {
     const authScript = document.createElement('script');
     authScript.src = prefix + 'js/auth.js';
     document.head.appendChild(authScript);
+
+    // ── Sidebar functies ─────────────────────────────────────
+    window.toggleSidebar = function() {
+      const sidebar  = document.getElementById('sidebar');
+      const overlay  = document.getElementById('sidebarOverlay');
+      const hamburger = document.getElementById('hamburgerBtn');
+      if (!sidebar) return;
+      const open = sidebar.classList.toggle('open');
+      overlay.classList.toggle('open', open);
+      hamburger.classList.toggle('open', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+
+    window.closeSidebar = function() {
+      const sidebar  = document.getElementById('sidebar');
+      const overlay  = document.getElementById('sidebarOverlay');
+      const hamburger = document.getElementById('hamburgerBtn');
+      if (!sidebar) return;
+      sidebar.classList.remove('open');
+      overlay.classList.remove('open');
+      hamburger.classList.remove('open');
+      document.body.style.overflow = '';
+    };
+
+    // ── Logo scroll-shrink ───────────────────────────────────
+    let scrollTicking = false;
+    window.addEventListener('scroll', function() {
+      if (!scrollTicking) {
+        requestAnimationFrame(function() {
+          const nav = document.getElementById('mainNav');
+          if (nav) nav.classList.toggle('nav-scrolled', window.scrollY > 60);
+          scrollTicking = false;
+        });
+        scrollTicking = true;
+      }
+    });
   }
 
   if (document.readyState === 'loading') {
