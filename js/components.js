@@ -241,12 +241,12 @@ window.addEventListener('scroll', function () {
       const nav = document.getElementById('mainNav');
       if (!nav) return;
       const y = window.scrollY;
-      // Alleen klein maken boven 70px 
-      if (!navScrolled && y > 70) {
+      // Alleen klein maken boven 80px 
+      if (!navScrolled && y > 80) {
         navScrolled = true;
         nav.classList.add('nav-scrolled');}
-      // Alleen terug groot maken onder 50px
-      else if (navScrolled && y < 50) {
+      // Alleen terug groot maken onder 45px
+      else if (navScrolled && y < 45) {
         navScrolled = false;
         nav.classList.remove('nav-scrolled');}
       scrollTicking = false;
