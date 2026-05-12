@@ -102,12 +102,18 @@
       </div>
 
       <div class="form-row">
-        <label>Foto's uploaden <span class="req">*</span></label>
+        <label>Google Drive-link</label>
+        <input type="url" id="nieuwDriveLink" placeholder="https://drive.google.com/drive/folders/...">
+        <div class="form-hint">Plak hier de deelbare link van de Google Drive-map. Zorg dat de map gedeeld is als "Iedereen met de link".</div>
+      </div>
+
+      <div class="form-row">
+        <label>Coverafbeelding</label>
         <div id="dropzone" class="dropzone" onclick="document.getElementById('fotoInput').click()">
-          <i class="ti ti-cloud-upload" style="font-size:2rem;color:var(--text-muted)"></i>
-          <p>Klik om foto's te kiezen, of sleep ze hierheen</p>
-          <p style="font-size:.73rem;color:var(--text-muted)">JPG, PNG, WEBP · max 10 MB per foto</p>
-          <input type="file" id="fotoInput" multiple accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleFotoSelectie(this.files)">
+          <i class="ti ti-photo-up" style="font-size:2rem;color:var(--text-muted)"></i>
+          <p>Klik om een coverafbeelding te kiezen</p>
+          <p style="font-size:.73rem;color:var(--text-muted)">JPG, PNG, WEBP · max 10 MB</p>
+          <input type="file" id="fotoInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleFotoSelectie(this.files)">
         </div>
         <div id="fotoPreviewGrid" class="foto-preview-grid"></div>
       </div>
@@ -136,34 +142,7 @@
     </div>
   </div>
 
-  <!-- ══ TAB: Upload foto's aan bestaand album ══ -->
-  <div id="tab-upload" class="tab-panel section" style="display:none">
-    <div class="section-title" style="margin-bottom:.3rem">Foto's toevoegen aan</div>
-    <div id="uploadAlbumNaam" style="font-size:1.1rem;font-weight:900;color:var(--blue);margin-bottom:1.2rem"></div>
 
-    <div class="form-row">
-      <div id="dropzone2" class="dropzone" onclick="document.getElementById('fotoInput2').click()">
-        <i class="ti ti-cloud-upload" style="font-size:2rem;color:var(--text-muted)"></i>
-        <p>Klik om foto's te kiezen, of sleep ze hierheen</p>
-        <input type="file" id="fotoInput2" multiple accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleFotoSelectie2(this.files)">
-      </div>
-      <div id="fotoPreviewGrid2" class="foto-preview-grid"></div>
-    </div>
-
-    <div id="uploadFout2" class="fout-banner" style="display:none"></div>
-
-    <div id="uploadVoortgang2" style="display:none;margin-bottom:1rem">
-      <div style="display:flex;justify-content:space-between;font-size:.78rem;font-weight:700;margin-bottom:.3rem">
-        <span id="uploadLabel2">Uploaden…</span><span id="uploadProcent2">0%</span>
-      </div>
-      <div class="voortgang-balk"><div id="voortgangBar2" style="width:0%;background:var(--blue);height:100%;border-radius:999px;transition:width .3s"></div></div>
-    </div>
-
-    <div style="display:flex;gap:.7rem;flex-wrap:wrap">
-      <button id="uploadBtn2" class="btn-blue" onclick="uploadNaarBestaandAlbum()"><i class="ti ti-upload"></i> Foto's uploaden</button>
-      <button class="btn-outline-blue" onclick="toonTabDirect('albums')"><i class="ti ti-arrow-left"></i> Terug naar albums</button>
-    </div>
-  </div>
 
 </div><!-- /beheerPaneel -->
 
@@ -189,8 +168,6 @@ const TAK_META = {
 };
 
 let geselecteerdeFotos = [];
-let geselecteerdeFotos2 = [];
-let actielAlbumId = null;
 
 // ── Auth check ────────────────────────────────────────────────
 async function checkToegang() {
@@ -263,9 +240,7 @@ function renderAlbumLijst(albums) {
         ${a.beschrijving ? `<div style="font-size:.75rem;color:var(--text-muted);margin-top:.1rem">${escapeHtml(a.beschrijving)}</div>` : ''}
       </div>
       <div style="display:flex;gap:.4rem;flex-shrink:0">
-        <button class="actie-btn" title="Foto's toevoegen" onclick="openUploadTab('${a.id}', '${escapeHtml(a.titel).replace(/'/g,"\\'")}')">
-          <i class="ti ti-upload"></i>
-        </button>
+
         <button class="actie-btn" title="${a.openbaar ? 'Privé maken' : 'Openbaar maken'}" onclick="toggleOpenbaar('${a.id}', ${a.openbaar})">
           <i class="ti ti-${a.openbaar ? 'eye' : 'eye-off'}"></i>
         </button>
@@ -279,45 +254,33 @@ function renderAlbumLijst(albums) {
 
 // ── Foto selectie & preview ───────────────────────────────────
 function handleFotoSelectie(files) {
-  geselecteerdeFotos = Array.from(files).filter(f => f.size <= 10 * 1024 * 1024);
-  renderPreview(geselecteerdeFotos, 'fotoPreviewGrid', 0);
+  // Enkel de eerste afbeelding als cover
+  geselecteerdeFotos = Array.from(files).slice(0, 1).filter(f => f.size <= 10 * 1024 * 1024);
+  renderPreview(geselecteerdeFotos, 'fotoPreviewGrid');
 }
-function handleFotoSelectie2(files) {
-  geselecteerdeFotos2 = Array.from(files).filter(f => f.size <= 10 * 1024 * 1024);
-  renderPreview(geselecteerdeFotos2, 'fotoPreviewGrid2', 1);
-}
-function renderPreview(fotos, containerId, set) {
+
+function renderPreview(fotos, containerId) {
   const grid = document.getElementById(containerId);
   if (fotos.length === 0) { grid.innerHTML = ''; return; }
   grid.innerHTML = fotos.map((f, i) => {
     const url = URL.createObjectURL(f);
     return `<div class="preview-thumb" style="background:url('${url}') center/cover">
-      <button class="preview-remove" onclick="verwijderFoto(${set},${i})">×</button>
+      <button class="preview-remove" onclick="verwijderFoto(${i})">×</button>
     </div>`;
   }).join('');
 }
-function verwijderFoto(set, i) {
-  if (set === 0) {
-    geselecteerdeFotos.splice(i, 1);
-    renderPreview(geselecteerdeFotos, 'fotoPreviewGrid', 0);
-  } else {
-    geselecteerdeFotos2.splice(i, 1);
-    renderPreview(geselecteerdeFotos2, 'fotoPreviewGrid2', 1);
-  }
+function verwijderFoto(i) {
+  geselecteerdeFotos.splice(i, 1);
+  renderPreview(geselecteerdeFotos, 'fotoPreviewGrid');
 }
 
 // ── Drag & drop ───────────────────────────────────────────────
-['dropzone','dropzone2'].forEach((id, set) => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('dragover'); });
-  el.addEventListener('dragleave', () => el.classList.remove('dragover'));
-  el.addEventListener('drop', e => {
-    e.preventDefault(); el.classList.remove('dragover');
-    if (set === 0) handleFotoSelectie(e.dataTransfer.files);
-    else handleFotoSelectie2(e.dataTransfer.files);
-  });
-});
+const dropzone = document.getElementById('dropzone');
+if (dropzone) {
+  dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+  dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+  dropzone.addEventListener('drop', e => { e.preventDefault(); dropzone.classList.remove('dragover'); handleFotoSelectie(e.dataTransfer.files); });
+}
 
 // ── Openbaar toggle ───────────────────────────────────────────
 async function toggleOpenbaar(id, huidig) {
@@ -351,42 +314,6 @@ async function verwijderAlbum(id, titel) {
   }
 }
 
-// ── Upload naar bestaand album ────────────────────────────────
-function openUploadTab(albumId, albumTitel) {
-  actielAlbumId = albumId;
-  document.getElementById('uploadAlbumNaam').textContent = albumTitel;
-  geselecteerdeFotos2 = [];
-  document.getElementById('fotoPreviewGrid2').innerHTML = '';
-  document.getElementById('fotoInput2').value = '';
-  document.getElementById('uploadFout2').style.display = 'none';
-  document.querySelectorAll('.tab-panel').forEach(p => p.style.display = 'none');
-  document.querySelectorAll('.beheer-tab').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-upload').style.display = 'block';
-}
-
-async function uploadNaarBestaandAlbum() {
-  if (!geselecteerdeFotos2.length) {
-    toonFout('uploadFout2', 'Kies eerst foto\'s om te uploaden.');
-    return;
-  }
-  const btn = document.getElementById('uploadBtn2');
-  btn.disabled = true;
-  document.getElementById('uploadVoortgang2').style.display = 'block';
-
-  try {
-    const sb = await waitForSb();
-    await uploadFotos(sb, geselecteerdeFotos2, actielAlbumId, 'voortgangBar2', 'uploadLabel2', 'uploadProcent2');
-    geselecteerdeFotos2 = [];
-    document.getElementById('fotoPreviewGrid2').innerHTML = '';
-    toonTabDirect('albums');
-    laadAlbums();
-  } catch (e) {
-    toonFout('uploadFout2', 'Upload mislukt: ' + e.message);
-  } finally {
-    btn.disabled = false;
-    document.getElementById('uploadVoortgang2').style.display = 'none';
-  }
-}
 
 // ── Nieuw album aanmaken ──────────────────────────────────────
 async function maakAlbumAan() {
@@ -402,7 +329,6 @@ async function maakAlbumAan() {
   if (!titel) return toonFout('aanmaakFout', 'Vul een albumtitel in.');
   if (!tak)   return toonFout('aanmaakFout', 'Kies een tak.');
   if (!datum) return toonFout('aanmaakFout', 'Kies een datum.');
-  if (!geselecteerdeFotos.length) return toonFout('aanmaakFout', 'Voeg minstens één foto toe.');
 
   const btn = document.getElementById('aanmaakBtn');
   btn.disabled = true;
@@ -413,22 +339,27 @@ async function maakAlbumAan() {
     const sb = await waitForSb();
 
     // 1. Album record aanmaken
+    const driveLink = document.getElementById('nieuwDriveLink').value.trim() || null;
+
+    // 1. Upload coverafbeelding indien gekozen
+    let coverUrl = null;
+    if (geselecteerdeFotos.length) {
+      document.getElementById('uploadVoortgang').style.display = 'block';
+      coverUrl = await uploadCover(sb, geselecteerdeFotos[0], 'voortgangBar', 'uploadLabel', 'uploadProcent');
+    }
+
+    // 2. Album record aanmaken
     const { data: albumData, error: albumErr } = await sb.from('albums').insert({
       titel, tak, datum, beschrijving: beschrijving || null, openbaar,
+      drive_link: driveLink,
+      cover_url: coverUrl,
       aangemaakt_door: window.AlbatrosAuth?.user?.id || null
     }).select().single();
     if (albumErr) throw albumErr;
-    const album = albumData;
-
-    // 2. Foto's uploaden
-    const coverUrl = await uploadFotos(sb, geselecteerdeFotos, album.id, 'voortgangBar', 'uploadLabel', 'uploadProcent');
-
-    // 3. Cover URL en foto_count updaten
-    await sb.from('albums').update({ cover_url: coverUrl, foto_count: geselecteerdeFotos.length }).eq('id', album.id);
 
     // Succes
     document.getElementById('aanmaakSuccess').style.display = 'block';
-    document.getElementById('aanmaakSuccess').textContent = `✓ Album "${titel}" aangemaakt met ${geselecteerdeFotos.length} foto's!`;
+    document.getElementById('aanmaakSuccess').textContent = `✓ Album "${titel}" aangemaakt!`;
     resetForm();
     setTimeout(() => toonTabDirect('albums'), 1500);
     laadAlbums();
@@ -443,30 +374,22 @@ async function maakAlbumAan() {
 }
 
 // ── Upload helper ─────────────────────────────────────────────
-async function uploadFotos(sb, fotos, albumId, barId, labelId, procentId) {
-  let coverUrl = null;
+async function uploadCover(sb, foto, barId, labelId, procentId) {
+  const ext = foto.name.split('.').pop().toLowerCase();
+  const pad = `covers/${Date.now()}.${ext}`;
 
-  for (let i = 0; i < fotos.length; i++) {
-    const foto = fotos[i];
-    const ext  = foto.name.split('.').pop().toLowerCase();
-    const pad  = `albums/${albumId}/${Date.now()}_${i}.${ext}`;
+  document.getElementById(labelId).textContent = 'Coverafbeelding uploaden…';
+  document.getElementById(procentId).textContent = '50%';
+  document.getElementById(barId).style.width = '50%';
 
-    document.getElementById(labelId).textContent = `Foto ${i+1} van ${fotos.length} uploaden…`;
-    document.getElementById(procentId).textContent = Math.round((i / fotos.length) * 100) + '%';
-    document.getElementById(barId).style.width = Math.round((i / fotos.length) * 100) + '%';
+  const { error } = await sb.storage.from('fotos').upload(pad, foto, { upsert: true });
+  if (error) throw new Error(`Upload mislukt: ${error.message}`);
 
-    const { data, error } = await sb.storage.from('fotos').upload(pad, foto, { upsert: true });
-    if (error) throw new Error(`Upload van ${foto.name} mislukt: ${error.message}`);
-
-    if (i === 0) {
-      const { data: urlData } = sb.storage.from('fotos').getPublicUrl(pad);
-      coverUrl = urlData.publicUrl;
-    }
-  }
+  const { data: urlData } = sb.storage.from('fotos').getPublicUrl(pad);
 
   document.getElementById(procentId).textContent = '100%';
   document.getElementById(barId).style.width = '100%';
-  return coverUrl;
+  return urlData.publicUrl;
 }
 
 // ── Helpers ───────────────────────────────────────────────────
@@ -482,6 +405,7 @@ function resetForm() {
   document.getElementById('nieuwDatum').value = '';
   document.getElementById('nieuwBeschrijving').value = '';
   document.getElementById('nieuwOpenbaar').checked = true;
+  document.getElementById('nieuwDriveLink').value = '';
   geselecteerdeFotos = [];
   document.getElementById('fotoPreviewGrid').innerHTML = '';
   document.getElementById('fotoInput').value = '';
