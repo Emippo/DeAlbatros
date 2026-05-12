@@ -282,7 +282,7 @@ async function laadHomeKalender() {
     .select('*')
     .gte('datum', nu)
     .order('datum', { ascending: true })
-    .limit(4);
+    .limit(3);
 
   if (error || !data?.length) {
     container.innerHTML = '<p style="font-size:.82rem;color:var(--text-muted)">Geen komende activiteiten.</p>';
