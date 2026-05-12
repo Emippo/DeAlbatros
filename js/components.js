@@ -39,7 +39,7 @@
       { href: prefix + 'Takken/bevers.html',  kleur: '#E24B4A', emoji: '🦫', label: 'Bevers' },
       { href: prefix + 'Takken/welpen.html',  kleur: '#EF9F27', emoji: '🐺', label: 'Welpen' },
       { href: prefix + 'Takken/jvg.html',     kleur: '#2D6A1F', emoji: '🌿', label: "JVG's" },
-      { href: prefix + 'Takken/vg.html',      kleur: '#1A5276', emoji: '⚡', label: "VG's" },
+      { href: prefix + 'Takken/vg.html',      kleur: '#1A5276', emoji: '⚜️', label: "VG's" },
       { href: prefix + 'Takken/seniors.html', kleur: '#7F77DD', emoji: '🔥', label: 'Seniors' },
       { href: prefix + 'Takken/stam.html',    kleur: '#5a5a6a', emoji: '🏕️', label: 'Stam' },
     ];
