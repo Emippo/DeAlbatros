@@ -27,6 +27,8 @@
       { id: 'albatrossertje', href: prefix + 'albatrossertje.html', icon: 'ti-news',         label: "'t Albatrossertje" },
       { id: 'fosshop',        href: prefix + 'fosshop.html',        icon: 'ti-shirt',        label: 'FOS-shop' },
       { id: 'contact',        href: prefix + 'contact.html',        icon: 'ti-mail',         label: 'Contact' },
+      { id: 'contact',        href: 'http://www.facebook.com/FOSalbatros',   icon:'ti-brand-facebook', label: 'Facebook' },
+      { id: 'contact',        href: 'https://www.instagram.com/de_albatros/', icon:'ti-brand-instagram', label: 'Instagram'}
     ];
 
     const sidebarLinks = links.map(l => `
@@ -87,18 +89,6 @@
     <div class="sidebar-divider"></div>
     <a href="http://www.keeo.fos.be" class="sidebar-cta" target="_blank">
       <i class="ti ti-user-plus"></i> Lid worden
-    </a>
-
-    <div class="sidebar-divider"></div>
-    <div class="sidebar-section-label">Contact &amp; socials</div>
-    <a href="${prefix}contact.html" class="sidebar-link">
-      <i class="ti ti-mail"></i><span>Contact</span>
-    </a>
-    <a href="http://www.facebook.com/FOSalbatros" class="sidebar-link" target="_blank">
-      <i class="ti ti-brand-facebook"></i><span>Facebook</span>
-    </a>
-    <a href="https://www.instagram.com/de_albatros/" class="sidebar-link" target="_blank">
-      <i class="ti ti-brand-instagram"></i><span>Instagram</span>
     </a>
 
     <div class="sidebar-divider"></div>
