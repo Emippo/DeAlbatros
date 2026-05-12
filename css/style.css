@@ -100,6 +100,7 @@ nav {
   z-index: 200;
   box-shadow: 0 2px 12px rgba(10,30,70,.18);
   transition: padding .3s ease;
+  will-change: padding;
 }
 
 /* Logo — groot bovenaan, krimpt bij scrollen */
@@ -115,6 +116,9 @@ nav {
   border-radius: 50%;
   object-fit: cover;
   border: 0px solid var(--yellow);
+  transition: width .3s ease, height .3s ease, border-width .3s ease;
+  will-change: width, height;
+  flex-shrink: 0;
 }
 .nav-logo-text {
   font-family: 'Playfair Display', serif;
@@ -142,9 +146,6 @@ nav.nav-scrolled { padding: .35rem 1.5rem; }
 nav.nav-scrolled #navLogoImg { width: 34px; height: 34px; border-width: 2px; }
 nav.nav-scrolled .nav-logo-text { font-size: .82rem; }
 nav.nav-scrolled .nav-logo-text small { opacity: 0; max-height: 0; margin: 0; }
-
-/* Logo-container hoogte stabiel houden zodat content niet springt */
-nav { min-height: 62px; }
 
 /* Hamburger knop */
 .hamburger {
