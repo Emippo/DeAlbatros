@@ -176,10 +176,13 @@ nav {
 }
 
 /* Verklein bij scrollen */
-nav.nav-scrolled { padding: .4rem 1.5rem; }
-nav.nav-scrolled #navLogoImg { width: 36px; height: 36px; border-width: 2px; }
-nav.nav-scrolled .nav-logo-text { font-size: .88rem; }
-nav.nav-scrolled .nav-logo-text small { opacity: 0; max-height: 0; }
+nav.nav-scrolled { padding: .35rem 1.5rem; }
+nav.nav-scrolled #navLogoImg { width: 34px; height: 34px; border-width: 2px; }
+nav.nav-scrolled .nav-logo-text { font-size: .82rem; }
+nav.nav-scrolled .nav-logo-text small { opacity: 0; max-height: 0; margin: 0; }
+
+/* Logo-container hoogte stabiel houden zodat content niet springt */
+nav { min-height: 62px; }
 
 /* Hamburger knop */
 .hamburger {
