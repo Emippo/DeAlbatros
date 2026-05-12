@@ -269,7 +269,7 @@ function injectModal() {
       <div class="foto-preview-inner" id="leidingFotoPreview">
         <i class="ti ti-user-circle" style="font-size:2.5rem;color:var(--blue-light)"></i>
         <span>Klik om foto te uploaden</span>
-        <small>JPG, PNG of WEBP · max 2MB</small>
+        <small>JPG, PNG of WEBP · max 10MB</small>
       </div>
       <input type="file" id="leidingFotoInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="LeidingUtils._handleFoto(event)">
     </div>
@@ -332,7 +332,7 @@ async function openModal(id = null) {
     <div class="foto-preview-inner" id="leidingFotoPreview">
       <i class="ti ti-user-circle" style="font-size:2.5rem;color:var(--blue-light)"></i>
       <span>Klik om foto te uploaden</span>
-      <small>JPG, PNG of WEBP · max 2MB</small>
+      <small>JPG, PNG of WEBP · max 10MB</small>
     </div>
     <input type="file" id="leidingFotoInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="LeidingUtils._handleFoto(event)">`;
   zone.onclick = () => document.getElementById('leidingFotoInput').click();
@@ -389,7 +389,7 @@ function closeModal() {
 function _handleFoto(event) {
   const file = event.target.files[0];
   if (!file) return;
-  if (file.size > 2 * 1024 * 1024) { alert('Foto te groot. Max 2MB.'); return; }
+  if (file.size > 10 * 1024 * 1024) { alert('Foto te groot. Max 10MB.'); return; }
   _fotoFile = file;
   const reader = new FileReader();
   reader.onload = e => {
