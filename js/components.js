@@ -246,7 +246,7 @@ window.addEventListener('scroll', function () {
         navScrolled = true;
         nav.classList.add('nav-scrolled');}
       // Alleen terug groot maken onder 45px
-      else if (navScrolled && y < 45) {
+      else if (navScrolled && y < 40) {
         navScrolled = false;
         nav.classList.remove('nav-scrolled');}
       scrollTicking = false;
