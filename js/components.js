@@ -16,31 +16,6 @@
   const depth  = window.COMPONENTS_DEPTH || 0;
   const prefix = depth > 0 ? '../'.repeat(depth) : '';
 
-  // ── Topbar ───────────────────────────────────────────────
-  function buildTopbar(activePage) {
-    const links = [
-      { id: 'index',    href: prefix + 'index.html',    icon: 'ti-home',        label: 'Home' },
-      { id: 'info',     href: prefix + 'info.html',     icon: 'ti-info-circle', label: 'Info' },
-      { id: 'kalender', href: prefix + 'kalender.html', icon: 'ti-calendar',    label: 'Kalender' },
-      { id: 'fotos',    href: prefix + 'fotos.html',    icon: 'ti-photo',       label: "Foto's" },
-      { id: 'fosshop',  href: prefix + 'fosshop.html',  icon: 'ti-mail',        label: 'FOS-Shop' },
-    ];
-    const linksHTML = links.map(l =>
-      `<a href="${l.href}" class="topbar-link${activePage === l.id ? ' active' : ''}"><i class="ti ${l.icon}"></i>${l.label}</a>`
-    ).join('');
-
-    return `
-<div class="topbar">
-  <div class="topbar-left">${linksHTML}</div>
-  <div class="topbar-right">
-    <a href="http://www.facebook.com/FOSalbatros" class="social-btn" target="_blank"><i class="ti ti-brand-facebook"></i>Facebook</a>
-    <a href="https://www.instagram.com/de_albatros/" class="social-btn" target="_blank"><i class="ti ti-brand-instagram"></i>Instagram</a>
-    <button class="login-btn" id="loginBtn" onclick="openLogin()"><i class="ti ti-user"></i> Login</button>
-    <div class="user-chip" id="userChip" style="display:none"></div>
-  </div>
-</div>`;
-  }
-
   // ── Nav ──────────────────────────────────────────────────
   function buildNav(activePage) {
     const links = [
@@ -113,6 +88,26 @@
     <a href="http://www.keeo.fos.be" class="sidebar-cta" target="_blank">
       <i class="ti ti-user-plus"></i> Lid worden
     </a>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Contact &amp; socials</div>
+    <a href="${prefix}contact.html" class="sidebar-link">
+      <i class="ti ti-mail"></i><span>Contact</span>
+    </a>
+    <a href="http://www.facebook.com/FOSalbatros" class="sidebar-link" target="_blank">
+      <i class="ti ti-brand-facebook"></i><span>Facebook</span>
+    </a>
+    <a href="https://www.instagram.com/de_albatros/" class="sidebar-link" target="_blank">
+      <i class="ti ti-brand-instagram"></i><span>Instagram</span>
+    </a>
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-login-area">
+      <button class="sidebar-login-btn" id="loginBtn" onclick="openLogin()">
+        <i class="ti ti-user"></i> Inloggen als leiding
+      </button>
+      <div class="user-chip" id="userChip" style="display:none"></div>
+    </div>
   </div>
 </div>
 `;
@@ -203,13 +198,12 @@
   // ── Inject everything ────────────────────────────────────
   function inject() {
     const activePage  = window.ACTIVE_PAGE  || 'index';
-    const activeTopbar = window.ACTIVE_TOPBAR || activePage;
 
     const body = document.body;
 
     // Insert topbar + nav + modal BEFORE page content
     const wrapper = document.createElement('div');
-    wrapper.innerHTML = buildTopbar(activeTopbar) + buildNav(activePage) + buildLoginModal();
+    wrapper.innerHTML = buildNav(activePage) + buildLoginModal();
     while (wrapper.firstChild) {
       body.insertBefore(wrapper.firstChild, body.firstChild);
     }
