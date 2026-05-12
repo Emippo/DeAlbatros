@@ -1142,15 +1142,14 @@ footer {
   position: relative;
 }
 .leiding-foto-lg {
-  width: 108px; height: 108px;
+  width: 120px; height: 120px;
   border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid var(--yellow);
+  object-fit: contain;
   margin: 0 auto .7rem;
   display: block;
 }
 .leiding-avatar-lg {
-  width: 62px; height: 62px;
+  width: 120px; height: 120px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   margin: 0 auto .7rem;
