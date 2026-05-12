@@ -140,8 +140,8 @@ async function laadVolledigOverzicht(containerId) {
 
   const takVolgorde = ['eenheidsleiding','bevers','welpen','jvg','vg','seniors','stam'];
   const takEmoji    = { eenheidsleiding:'🦅', bevers:'🦫', welpen:'🐺', jvg:'🌿', vg:'⚜️', seniors:'🔥', stam:'🏕️' };
-  const takTitels   = { eenheidsleiding:'Eenheidsleiding', bevers:'Beversleiding', welpen:'Welpenleiding',
-                        jvg:'JVG-leiding', vg:'VG-leiding', seniors:'Seniorenleiding', stam:'Stamleiding' };
+  const takTitels   = { eenheidsleiding:'Eenheidsleiding', bevers:'Beverleiding', welpen:'Welpenleiding',
+                        jvg:'JVG-leiding', vg:'VG-leiding', seniors:'Senior Moderator', stam:'Stam Verantwoordelijke' };
 
   // Groepeer per tak
   const perTak = {};
