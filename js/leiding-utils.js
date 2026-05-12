@@ -486,3 +486,4 @@ async function remove() {
 
 // Publieke API
 return { laadVoorTak, laadVolledigOverzicht, laadActiviteiten, openModal, closeModal, save, remove, _handleFoto, TAK_CONFIG };
+})();
