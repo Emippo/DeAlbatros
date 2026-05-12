@@ -231,18 +231,29 @@
       document.body.style.overflow = '';
     };
 
-    // ── Logo scroll-shrink ───────────────────────────────────
-    let scrollTicking = false;
-    window.addEventListener('scroll', function() {
-      if (!scrollTicking) {
-        requestAnimationFrame(function() {
-          const nav = document.getElementById('mainNav');
-          if (nav) nav.classList.toggle('nav-scrolled', window.scrollY > 60);
-          scrollTicking = false;
-        });
-        scrollTicking = true;
-      }
+// ── Logo scroll-shrink met hysteresis ───────────────────
+let scrollTicking = false;
+let navScrolled = false;
+
+window.addEventListener('scroll', function () {
+  if (!scrollTicking) {
+    requestAnimationFrame(function () {
+      const nav = document.getElementById('mainNav');
+      if (!nav) return;
+      const y = window.scrollY;
+      // Alleen klein maken boven 70px
+      if (!navScrolled && y > 70) {
+        navScrolled = true;
+        nav.classList.add('nav-scrolled');}
+      // Alleen terug groot maken onder 50px
+      else if (navScrolled && y < 50) {
+        navScrolled = false;
+        nav.classList.remove('nav-scrolled');}
+      scrollTicking = false;
     });
+    scrollTicking = true;
+  }
+});
   }
 
   if (document.readyState === 'loading') {
