@@ -1089,10 +1089,10 @@ footer {
 
 /* Foto of initialen avatar */
 .leiding-foto {
-  width: 64px; height: 64px;
+  width: 100px; height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2.5px solid var(--border);
+  border: 0px solid var(--border);
   margin: 0 auto .6rem;
   display: block;
 }
@@ -1142,7 +1142,7 @@ footer {
   position: relative;
 }
 .leiding-foto-lg {
-  width: 72px; height: 72px;
+  width: 108px; height: 108px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid var(--yellow);
