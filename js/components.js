@@ -119,7 +119,6 @@
     </div>
     <div class="footer-col"><h4>Navigatie</h4>
       <div class="footer-links-col">
-        <a href="${prefix}index.html">Home</a>
         <a href="${prefix}takken.html">Onze takken</a>
         <a href="${prefix}fotos.html">Foto's</a>
         <a href="${prefix}kalender.html">Kalender</a>
@@ -141,8 +140,9 @@
       <div class="footer-links-col">
         <a href="${prefix}info.html">Algemene info</a>
         <a href="${prefix}fosshop.html">FOS-shop</a>
-        <a href="https://www.dealbatros.be/onze-leiding/" target="_blank">Onze leiding</a>
-        <a href="https://www.dealbatros.be/kampen/" target="_blank">Kampen</a>
+        <a href="${prefix}info/leiding.html" target="_blank">Onze Leiding</a>
+        <a href="${prefix}info/kampen.html" target="_blank">Kampen</a>
+        <a href="${prefix}info/vzw.html" target="_blank">VZW</a>
       </div>
     </div>
     <div class="footer-col"><h4>Contact</h4>
