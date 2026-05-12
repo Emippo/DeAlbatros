@@ -31,56 +31,9 @@ body {
   font-size: 15px;
 }
 
-/* ── TOPBAR ─────────────────────────────────────────────────── */
-.topbar {
-  background: var(--blue-dark);
-  color: rgba(255,255,255,.7);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 2rem;
-  font-size: .72rem;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-.topbar-left  { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-.topbar-right { display: flex; gap: 6px; align-items: center; }
+/* ── TOPBAR verwijderd ── */
 
-.topbar-link {
-  color: rgba(255,255,255,.65);
-  text-decoration: none;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  padding: 4px 10px;
-  border-radius: 6px;
-  transition: background .15s, color .15s;
-  font-weight: 700;
-  font-size: .7rem;
-  cursor: pointer;
-  border: none;
-  background: none;
-}
-.topbar-link:hover, .topbar-link.active {
-  background: var(--yellow);
-  color: var(--blue-dark);
-}
-
-.social-btn {
-  color: rgba(255,255,255,.65);
-  text-decoration: none;
-  padding: 4px 10px;
-  border-radius: 6px;
-  font-size: .7rem;
-  font-weight: 700;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  transition: background .15s, color .15s;
-}
-.social-btn:hover { background: var(--yellow); color: var(--blue-dark); }
-
-/* ── LOGIN BUTTON & USER CHIP ───────────────────────────────── */
+/* ── LOGIN BUTTON & USER CHIP (sidebar versie) ──────────────── */
 .login-btn {
   border: none;
   background: var(--yellow);
@@ -228,12 +181,12 @@ nav { min-height: 62px; }
 
 .sidebar {
   position: fixed;
-  top: 0; left: 0;
+  top: 0; right: 0;
   width: min(300px, 85vw);
   height: 100dvh;
   background: var(--blue-dark);
   z-index: 400;
-  transform: translateX(-100%);
+  transform: translateX(100%);
   transition: transform .32s cubic-bezier(.4,0,.2,1);
   display: flex;
   flex-direction: column;
@@ -370,6 +323,61 @@ nav { min-height: 62px; }
   justify-content: center;
 }
 .sidebar-cta:hover { background: #ffe55a; }
+
+/* Sidebar login */
+.sidebar-login-area { padding: .3rem 1.3rem; }
+.sidebar-login-btn {
+  width: 100%;
+  background: rgba(245,197,24,.15);
+  border: 1px solid rgba(245,197,24,.3);
+  color: var(--yellow);
+  border-radius: 10px;
+  padding: .65rem 1rem;
+  font-family: 'Nunito', sans-serif;
+  font-size: .83rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  transition: background .15s;
+}
+.sidebar-login-btn:hover { background: rgba(245,197,24,.25); }
+.sidebar-user-chip {
+  width: 100%;
+  background: rgba(245,197,24,.12);
+  border: 1px solid rgba(245,197,24,.25);
+  border-radius: 10px;
+  padding: .6rem 1rem;
+  font-size: .78rem;
+  font-weight: 700;
+  color: var(--yellow);
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+.sidebar-user-chip span { color: rgba(255,255,255,.85); }
+.sidebar-user-chip button {
+  background: none; border: none;
+  cursor: pointer; color: rgba(255,255,255,.4);
+  font-size: .85rem; display: flex; align-items: center;
+  transition: color .15s; padding: 0; margin-left: auto;
+}
+.sidebar-user-chip button:hover { color: var(--yellow); }
+
+/* Sidebar social links */
+.sidebar-social-link {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .55rem 1.3rem;
+  color: rgba(255,255,255,.65);
+  text-decoration: none;
+  font-size: .83rem;
+  font-weight: 700;
+  transition: background .15s, color .15s;
+}
+.sidebar-social-link i { font-size: 1.1rem; width: 20px; }
+.sidebar-social-link:hover { background: rgba(255,255,255,.07); color: #fff; }
 
 /* ── LOGIN MODAL ─────────────────────────────────────────────── */
 .modal {
