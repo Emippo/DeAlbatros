@@ -148,7 +148,6 @@ function toonAlbums(tak) {
         <div class="album-thumb" style="${thumbStyle}">
           ${!album.cover_url ? `<span>${meta.emoji}</span>` : ''}
           ${!album.openbaar ? '<span class="album-badge" style="background:#E24B4A;right:.6rem;left:auto">Privé</span>' : ''}
-          ${album.drive_link ? '<span class="album-drive-icon"><i class="ti ti-brand-google-drive"></i></span>' : ''}
         </div>
         <div class="album-info">
           <h3>${escapeHtml(album.titel)}</h3>
@@ -205,18 +204,7 @@ document.addEventListener('albatros-auth-ready', () => {
   text-decoration: none;
   color: inherit;
 }
-.album-drive-icon {
-  position: absolute;
-  bottom: .6rem;
-  right: .6rem;
-  background: #fff;
-  border-radius: 6px;
-  width: 26px; height: 26px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .9rem;
-  color: #4285F4;
-  box-shadow: 0 1px 4px rgba(0,0,0,.15);
-}
+
 .album-card:hover {
   box-shadow: 0 8px 24px rgba(26,82,118,.13);
   transform: translateY(-3px);
