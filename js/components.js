@@ -20,8 +20,8 @@
   function buildNav(activePage) {
     const links = [
       { id: 'index',          href: prefix + 'index.html',          icon: 'ti-home',        label: 'Home' },
-      { id: 'takken',         href: prefix + 'takken.html',         icon: 'ti-users',        label: 'Takken' },
       { id: 'info',           href: prefix + 'info.html',           icon: 'ti-info-circle',  label: 'Info' },
+      { id: 'takken',         href: prefix + 'takken.html',         icon: 'ti-users',        label: 'Takken' },
       { id: 'fotos',          href: prefix + 'fotos.html',          icon: 'ti-photo',        label: "Foto's" },
       { id: 'kalender',       href: prefix + 'kalender.html',       icon: 'ti-calendar',     label: 'Kalender' },
       { id: 'albatrossertje', href: prefix + 'albatrossertje.html', icon: 'ti-news',         label: "'t Albatrossertje" },
