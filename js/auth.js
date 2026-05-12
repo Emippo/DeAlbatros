@@ -14,11 +14,11 @@ const ROLE_PERMISSIONS = {
     canEditTakken:    ['bevers','welpen','jvg','vg','seniors','stam'],
     label: 'Eenheidsleiding'
   },
-  bevers_leiding:  { canEditAlbums: false, canManageEvents: false, canEditAllTakken: false, canEditTakken: ['bevers'],  label: 'Beversleiding' },
+  bever_leiding:  { canEditAlbums: false, canManageEvents: false, canEditAllTakken: false, canEditTakken: ['bevers'],  label: 'Beverleiding' },
   welpen_leiding:  { canEditAlbums: false, canManageEvents: false, canEditAllTakken: false, canEditTakken: ['welpen'],  label: 'Welpenleiding' },
   jvg_leiding:     { canEditAlbums: false, canManageEvents: false, canEditAllTakken: false, canEditTakken: ['jvg'],     label: 'JVG-leiding' },
   vg_leiding:      { canEditAlbums: false, canManageEvents: false, canEditAllTakken: false, canEditTakken: ['vg'],      label: 'VG-leiding' },
-  seniors_leiding: { canEditAlbums: false, canManageEvents: false, canEditAllTakken: false, canEditTakken: ['seniors'], label: 'Seniorenleiding' },
+  senior_leiding: { canEditAlbums: false, canManageEvents: false, canEditAllTakken: false, canEditTakken: ['seniors'], label: 'Seniormoderator' },
   stam_leiding:    { canEditAlbums: false, canManageEvents: false, canEditAllTakken: false, canEditTakken: ['stam'],    label: 'Stamleiding' }
 };
 
