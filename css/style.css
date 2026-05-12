@@ -111,10 +111,10 @@ nav {
   transition: gap .3s ease;
 }
 #navLogoImg {
-  width: 52px; height: 52px;
+  width: 100px; height: 100px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2.5px solid var(--yellow);
+  border: 0px solid var(--yellow);
   transition: width .3s ease, height .3s ease, border-width .3s ease;
 }
 .nav-logo-text {
