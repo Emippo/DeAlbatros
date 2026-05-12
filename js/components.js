@@ -23,7 +23,6 @@
       { id: 'info',     href: prefix + 'info.html',     icon: 'ti-info-circle', label: 'Info' },
       { id: 'kalender', href: prefix + 'kalender.html', icon: 'ti-calendar',    label: 'Kalender' },
       { id: 'fotos',    href: prefix + 'fotos.html',    icon: 'ti-photo',       label: "Foto's" },
-      { id: 'fosshop',  href: prefix + 'fosshop.html',  icon: 'ti-shirt',       label: 'FOS-shop' },
       { id: 'contact',  href: prefix + 'contact.html',  icon: 'ti-mail',        label: 'Contact' },
     ];
     const linksHTML = links.map(l =>
@@ -45,30 +44,110 @@
   // ── Nav ──────────────────────────────────────────────────
   function buildNav(activePage) {
     const links = [
-      { id: 'index',          href: prefix + 'index.html',          label: 'Home' },
-      { id: 'takken',         href: prefix + 'takken.html',         label: 'Takken' },
-      { id: 'info',           href: prefix + 'info.html',           label: 'Info' },
-      { id: 'fotos',          href: prefix + 'fotos.html',          label: "Foto's" },
-      { id: 'kalender',       href: prefix + 'kalender.html',       label: 'Kalender' },
-      { id: 'albatrossertje', href: prefix + 'albatrossertje.html', label: "'t Albatrossertje" },
-      { id: 'fosshop',        href: prefix + 'fosshop.html',        label: 'Fos-Shop' },
+      { id: 'index',          href: prefix + 'index.html',          icon: 'ti-home',        label: 'Home' },
+      { id: 'takken',         href: prefix + 'takken.html',         icon: 'ti-users',        label: 'Takken' },
+      { id: 'info',           href: prefix + 'info.html',           icon: 'ti-info-circle',  label: 'Info' },
+      { id: 'fotos',          href: prefix + 'fotos.html',          icon: 'ti-photo',        label: "Foto's" },
+      { id: 'kalender',       href: prefix + 'kalender.html',       icon: 'ti-calendar',     label: 'Kalender' },
+      { id: 'albatrossertje', href: prefix + 'albatrossertje.html', icon: 'ti-news',         label: "'t Albatrossertje" },
+      { id: 'fosshop',        href: prefix + 'fosshop.html',        icon: 'ti-shirt',        label: 'FOS-shop' },
+      { id: 'contact',        href: prefix + 'contact.html',        icon: 'ti-mail',         label: 'Contact' },
     ];
-    const linksHTML = links.map(l =>
-      `<a href="${l.href}" class="nav-link${activePage === l.id ? ' active' : ''}">${l.label}</a>`
-    ).join('');
+
+    const sidebarLinks = links.map(l => `
+      <a href="${l.href}" class="sidebar-link${activePage === l.id ? ' active' : ''}">
+        <i class="ti ${l.icon}"></i>
+        <span>${l.label}</span>
+      </a>`).join('');
+
+    const takken = [
+      { href: prefix + 'Takken/bevers.html',  kleur: '#E24B4A', emoji: '🦫', label: 'Bevers' },
+      { href: prefix + 'Takken/welpen.html',  kleur: '#EF9F27', emoji: '🐺', label: 'Welpen' },
+      { href: prefix + 'Takken/jvg.html',     kleur: '#2D6A1F', emoji: '🌿', label: "JVG's" },
+      { href: prefix + 'Takken/vg.html',      kleur: '#1A5276', emoji: '⚡', label: "VG's" },
+      { href: prefix + 'Takken/seniors.html', kleur: '#7F77DD', emoji: '🔥', label: 'Seniors' },
+      { href: prefix + 'Takken/stam.html',    kleur: '#5a5a6a', emoji: '🏕️', label: 'Stam' },
+    ];
+    const takkenLinks = takken.map(t => `
+      <a href="${t.href}" class="sidebar-tak-link">
+        <span class="sidebar-tak-dot" style="background:${t.kleur}">${t.emoji}</span>
+        <span>${t.label}</span>
+      </a>`).join('');
 
     return `
-<nav>
-  <a href="${prefix}index.html" class="nav-logo">
-    <img src="${prefix}img/logo.png" onerror="this.style.display='none'" alt="Logo 102e FOS De Albatros">
-    <div class="nav-logo-text">De Albatros<small>102e FOS · Knokke-Heist</small></div>
+<nav id="mainNav">
+  <a href="${prefix}index.html" class="nav-logo" id="navLogo">
+    <img src="${prefix}img/logo.png" onerror="this.style.display='none'" alt="Logo 102e FOS De Albatros" id="navLogoImg">
+    <div class="nav-logo-text" id="navLogoText">De Albatros<small>102e FOS · Knokke-Heist</small></div>
   </a>
-  <div class="search-bar"><i class="ti ti-search"></i><input type="text" placeholder="Zoeken…" id="globalSearch" onkeydown="if(event.key==='Enter')handleSearch(this.value)"></div>
-  <div class="nav-links">
-    ${linksHTML}
-    <a href="http://www.keeo.fos.be" class="nav-link nav-cta" target="_blank">Lid worden</a>
+  <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Menu openen">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<!-- Sidebar overlay -->
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- Sidebar drawer -->
+<div class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <a href="${prefix}index.html" class="sidebar-logo">
+      <img src="${prefix}img/logo.png" onerror="this.style.display='none'" alt="">
+      <div>
+        <strong>De Albatros</strong>
+        <small>102e FOS · Knokke-Heist</small>
+      </div>
+    </a>
+    <button class="sidebar-close" onclick="closeSidebar()"><i class="ti ti-x"></i></button>
   </div>
-</nav>`;
+
+  <div class="sidebar-body">
+    <div class="sidebar-section-label">Navigatie</div>
+    ${sidebarLinks}
+
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section-label">Takken</div>
+    ${takkenLinks}
+
+    <div class="sidebar-divider"></div>
+    <a href="http://www.keeo.fos.be" class="sidebar-cta" target="_blank">
+      <i class="ti ti-user-plus"></i> Lid worden
+    </a>
+  </div>
+</div>
+
+<script>
+function toggleSidebar() {
+  const open = document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open', open);
+  document.getElementById('hamburgerBtn').classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+  document.getElementById('hamburgerBtn').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Logo verkleinen bij scrollen
+(function() {
+  const nav    = document.getElementById('mainNav');
+  const img    = document.getElementById('navLogoImg');
+  const txt    = document.getElementById('navLogoText');
+  let ticking  = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        const scrolled = window.scrollY > 60;
+        nav.classList.toggle('nav-scrolled', scrolled);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+})();
+<\/script>`;
   }
 
   // ── Footer ───────────────────────────────────────────────
@@ -89,11 +168,10 @@
       <div class="footer-links-col">
         <a href="${prefix}index.html">Home</a>
         <a href="${prefix}takken.html">Onze takken</a>
-        <a href="${prefix}info.html">Info</a>
         <a href="${prefix}fotos.html">Foto's</a>
         <a href="${prefix}kalender.html">Kalender</a>
         <a href="${prefix}albatrossertje.html">'t Albatrossertje</a>
-        <a href="${prefix}fosshop.html">FOS-shop</a>
+        <a href="${prefix}contact.html">Contact</a>
       </div>
     </div>
     <div class="footer-col"><h4>Takken</h4>
@@ -108,11 +186,8 @@
     </div>
     <div class="footer-col"><h4>Info</h4>
       <div class="footer-links-col">
-        <a href="${prefix}info.html">Info overzicht</a>
-        <a href="${prefix}info/algemeen.html">Algemene info</a>
-        <a href="${prefix}info/kampen.html">Kampen</a>
-        <a href="${prefix}info/leiding.html">Leiding</a>
-        <a href="${prefix}info/vzw.html">Onze vzw</a>
+        <a href="${prefix}info.html">Algemene info</a>
+        <a href="${prefix}fosshop.html">FOS-shop</a>
         <a href="https://www.dealbatros.be/onze-leiding/" target="_blank">Onze leiding</a>
         <a href="https://www.dealbatros.be/kampen/" target="_blank">Kampen</a>
       </div>
@@ -181,13 +256,6 @@
     authScript.src = prefix + 'js/auth.js';
     document.head.appendChild(authScript);
   }
-
-  // Simple search handler — navigates to a search results page or filters
-  window.handleSearch = function(query) {
-    if (!query.trim()) return;
-    // Placeholder: navigeer naar index met zoekterm
-    window.location.href = prefix + 'index.html?q=' + encodeURIComponent(query.trim());
-  };
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', inject);
