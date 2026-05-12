@@ -85,16 +85,16 @@
 
 <script>
 
-// Leiding laden
+  // Leiding laden
 function laadLeiding() {
   LeidingUtils.laadVoorTak('vg', 'leidingContainer');
 }
 window.addEventListener('leiding-updated', laadLeiding);
 document.addEventListener('DOMContentLoaded', () => setTimeout(laadLeiding, 300));
 
-// Activiteiten laden voor vg
+// Activiteiten laden voor VG's
 document.addEventListener('DOMContentLoaded', () => setTimeout(() => {
-  LeidingUtils.laadActiviteiten('vg', 'activiteitenContainer', '#1A5276', 'VG's');
+  LeidingUtils.laadActiviteiten('vg', 'activiteitenContainer', '#EF9F27', 'VG\'s');
 }, 300));
 </script>
 
