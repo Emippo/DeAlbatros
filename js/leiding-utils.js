@@ -61,7 +61,7 @@ function renderKaart(l, tak, context) {
   // Extra info: TL-badge + email + gsm (enkel voor takleiding)
   let extra = '';
   if (l.is_takleiding) {
-    extra += `<span class="leiding-tl-badge">TL</span>`;
+    extra += `<span class="leiding-tl-badge">Takleiding</span>`;
     if (cfg.email) extra += `<a href="mailto:${esc(cfg.email)}" class="leiding-contact-link"><i class="ti ti-mail"></i>${esc(cfg.email)}</a>`;
     if (l.gsm)     extra += `<a href="tel:${esc(l.gsm)}" class="leiding-contact-link"><i class="ti ti-phone"></i>${esc(l.gsm)}</a>`;
   } else if (l.is_eenheidsleiding && context === 'overzicht') {
