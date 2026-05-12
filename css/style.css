@@ -1064,3 +1064,166 @@ footer {
   font-size: .7rem;
   opacity: .45;
 }
+
+/* ── LEIDING KAARTEN (dynamisch) ─────────────────────────── */
+.leiding-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: .8rem;
+}
+.leiding-grid-lg {
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+}
+
+.leiding-card {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow .15s;
+  position: relative;
+}
+.leiding-card:hover { box-shadow: var(--shadow-md); }
+
+/* Foto of initialen avatar */
+.leiding-foto {
+  width: 64px; height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid var(--border);
+  margin: 0 auto .6rem;
+  display: block;
+}
+.leiding-avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto .6rem;
+  font-weight: 900; font-size: .9rem; color: #fff;
+}
+
+.leiding-card-body { display: flex; flex-direction: column; align-items: center; gap: .15rem; }
+.leiding-card h4   { font-size: .85rem; font-weight: 900; margin: 0; }
+.leiding-echtenaam { font-size: .72rem; color: var(--text-muted); font-style: italic; }
+.leiding-welpennaam { font-size: .78rem; font-weight: 900; color: var(--text-muted); }
+
+.leiding-tl-badge {
+  display: inline-block;
+  background: var(--blue-pale);
+  color: var(--blue);
+  font-size: .62rem;
+  font-weight: 900;
+  padding: 1px 8px;
+  border-radius: 999px;
+  margin-top: .25rem;
+}
+.leiding-contact-link {
+  font-size: .68rem;
+  font-weight: 700;
+  color: var(--blue-light);
+  text-decoration: none;
+  display: flex; align-items: center; justify-content: center; gap: .25rem;
+  margin-top: .2rem;
+  word-break: break-all;
+}
+.leiding-contact-link:hover { text-decoration: underline; }
+
+/* Grote EL kaart */
+.leiding-card-lg {
+  background: #fff;
+  border: 0.5px solid var(--border);
+  border-top: 3px solid;
+  border-radius: var(--radius);
+  padding: 1.4rem 1.2rem;
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.leiding-foto-lg {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--yellow);
+  margin: 0 auto .7rem;
+  display: block;
+}
+.leiding-avatar-lg {
+  width: 62px; height: 62px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto .7rem;
+  font-weight: 900; font-size: 1rem; color: #fff;
+}
+.leiding-card-lg h4 { font-size: .92rem; font-weight: 900; margin-bottom: .1rem; }
+.leiding-totem-name { font-size: .76rem; color: var(--text-muted); margin-bottom: .25rem; }
+.leiding-email, .leiding-tel {
+  font-size: .72rem; color: var(--blue-light); text-decoration: none;
+  display: flex; align-items: center; justify-content: center; gap: .3rem;
+  font-weight: 700; margin-top: .3rem;
+}
+
+/* Edit knop op kaart */
+.leiding-edit-btn {
+  display: none;
+  position: absolute; top: 6px; right: 6px;
+  background: rgba(255,255,255,.9);
+  border: 0.5px solid var(--border);
+  border-radius: 7px;
+  width: 28px; height: 28px;
+  align-items: center; justify-content: center;
+  cursor: pointer; font-size: .85rem; color: var(--blue-light);
+  transition: background .15s;
+}
+.leiding-edit-btn:hover { background: var(--blue-pale); }
+body.logged-in .leiding-edit-btn { display: flex; }
+
+/* Loading / fout */
+.leiding-loading {
+  font-size: .85rem; color: var(--text-muted);
+  display: flex; align-items: center; gap: .5rem; padding: 1rem 0;
+}
+.leiding-fout { font-size: .82rem; color: var(--text-muted); padding: .5rem 0; }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spin { display: inline-block; animation: spin .8s linear infinite; }
+
+/* Foto upload zone (ook gebruikt in shop) */
+.foto-upload-zone {
+  border: 2px dashed var(--border); border-radius: 12px;
+  cursor: pointer; overflow: hidden; transition: border-color .15s, background .15s;
+  min-height: 100px; display: flex; align-items: center; justify-content: center;
+}
+.foto-upload-zone:hover { border-color: var(--blue-light); background: var(--blue-pale); }
+.foto-preview-inner {
+  display: flex; flex-direction: column; align-items: center; gap: .3rem;
+  padding: 1.2rem; color: var(--text-muted); text-align: center;
+}
+.foto-preview-inner i { color: var(--blue-light); }
+.foto-preview-inner span { font-size: .83rem; font-weight: 700; }
+.foto-preview-inner small { font-size: .72rem; }
+
+/* Modal gedeeld */
+.event-modal-box {
+  background: #fff; border-radius: 20px;
+  padding: 2rem; display: flex; flex-direction: column; gap: .9rem;
+  position: relative; box-shadow: 0 24px 60px rgba(0,0,0,.25);
+  animation: modalSlideIn .2s ease;
+}
+.event-modal-box h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--blue-dark); }
+.ev-select {
+  padding: .75rem 1rem; border: 1.5px solid var(--border); border-radius: 10px;
+  font-family: 'Nunito', sans-serif; font-size: .9rem; outline: none;
+  background: #fff; color: var(--text); cursor: pointer; width: 100%;
+  transition: border-color .15s;
+}
+.ev-select:focus { border-color: var(--blue-light); }
+.btn-delete {
+  background: #FFF0F0; border: 1.5px solid #F5C6C6; color: #C0392B;
+  border-radius: 10px; padding: .75rem 1.2rem; font-family: 'Nunito', sans-serif;
+  font-size: .88rem; font-weight: 900; cursor: pointer;
+  display: flex; align-items: center; gap: .4rem; transition: background .15s;
+}
+.btn-delete:hover { background: #FFE0E0; }
+@keyframes modalSlideIn { from { transform: translateY(20px); opacity: 0; } to { transform: none; opacity: 1; } }
