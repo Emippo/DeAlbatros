@@ -8,15 +8,17 @@
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
 <link rel="stylesheet" href="../css/style.css">
-<script>window.ACTIVE_PAGE='info'; window.ACTIVE_TOPBAR='info'; window.COMPONENTS_DEPTH=1;</script>
+<script>window.ACTIVE_PAGE='info'; window.COMPONENTS_DEPTH=1;</script>
 <script src="../js/components.js"></script>
+<script src="../js/leiding-utils.js"></script>
 </head>
 <body>
 
-<!-- Edit bar -->
 <div class="edit-bar" data-permission="canManageEvents">
   <span><i class="ti ti-shield-check"></i> Eenheidsleiding</span>
-  <button class="edit-bar-btn" onclick="alert('Leiding bewerken — koppel hier je CMS')"><i class="ti ti-edit"></i> Leiding bewerken</button>
+  <button class="edit-bar-btn" onclick="LeidingUtils.openModal()">
+    <i class="ti ti-user-plus"></i> Leidingslid toevoegen
+  </button>
 </div>
 
 <div class="page-header">
@@ -25,237 +27,19 @@
   <p>Maak kennis met de mensen die De Albatros draaiende houden.</p>
 </div>
 
-<!-- Eenheidsleiding -->
-<div class="section">
-  <div class="section-label">Eenheidsleiding</div>
-  <div class="section-title">De groepsverantwoordelijken</div>
-  <div class="section-sub">De eenheidsleiding coördineert alle takken en is het eerste aanspreekpunt voor algemene vragen.</div>
-
-  <div class="leiding-grid" style="margin-top:1rem">
-    <div class="leiding-card-lg" style="border-top-color:var(--yellow)">
-      <div class="leiding-avatar-lg" style="background:var(--blue)">FS</div>
-      <h4>Flagrante Stern</h4>
-      <div class="leiding-totem-name">Nell D'Hondt</div>
-      <div class="leiding-role">EL Communicatie</div>
-      <a href="mailto:stern@dealbatros.be" class="leiding-email"><i class="ti ti-mail"></i> stern@dealbatros.be</a>
-      <a href="tel:+32476052306" class="leiding-tel"><i class="ti ti-phone"></i> +32 476 05 23 06</a>
-    </div>
-    <div class="leiding-card-lg" style="border-top-color:var(--yellow)">
-      <div class="leiding-avatar-lg" style="background:var(--blue)">VO</div>
-      <h4>Vindingrijke Olifant</h4>
-      <div class="leiding-totem-name">Lennert Vanlerberghe</div>
-      <div class="leiding-role">EL Ledenbeheer</div>
-      <a href="mailto:olifant@dealbatros.be" class="leiding-email"><i class="ti ti-mail"></i> olifant@dealbatros.be</a>
-      <a href="tel:+32494942088" class="leiding-tel"><i class="ti ti-phone"></i> +32 494 94 20 88</a>
-    </div>
-    <div class="leiding-card-lg" style="border-top-color:var(--yellow)">
-      <div class="leiding-avatar-lg" style="background:var(--blue)">BD</div>
-      <h4>Bedachtzame Das</h4>
-      <div class="leiding-totem-name">Quentin Minnaert</div>
-      <div class="leiding-role">EL Financiën</div>
-      <a href="mailto:das@dealbatros.be" class="leiding-email"><i class="ti ti-mail"></i> das@dealbatros.be</a>
-      <a href="tel:+32492795197" class="leiding-tel"><i class="ti ti-phone"></i> +32 492 79 51 97</a>
-    </div>
+<div id="leidingOverzicht">
+  <div class="section">
+    <div class="leiding-loading"><i class="ti ti-loader-2 spin"></i> Leiding laden…</div>
   </div>
 </div>
 
-<div class="divider"></div>
-
-<!-- Bevers -->
-<div class="section">
-  <div class="section-label" style="color:#E24B4A">🦫 Bevers</div>
-  <div class="section-title">Beversleiding</div>
-  <div class="leiding-grid">
-    <div class="leiding-card" style="border-top:3px solid #E24B4A">
-      <div class="leiding-avatar" style="background:#E24B4A">VB</div>
-      <h4>Levenslustige Ringstaartmaki</h4>
-      <div class="totem">Babette Priem</div>
-      <a href="mailto:bevers@dealbatros.be" class="email">bevers@dealbatros.be</a>
-      <a href="mailto:ringstaartmaki@dealbatros.be" class="email">ringstaartmaki@dealbatros.be</a>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #E24B4A">
-      <div class="leiding-avatar" style="background:#c0392b">RV</div>
-      <h4>Flagrante Stern</h4>
-      <div class="totem">Nell D'Hondt</div>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #E24B4A">
-      <div class="leiding-avatar" style="background:#e74c3c">ZO</div>
-      <h4>Aansteklijke Arrassari</h4>
-      <div class="totem">Alexine Huys</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- Welpen -->
-<div class="section">
-  <div class="section-label" style="color:#C9980A">🐺 Welpen</div>
-  <div class="section-title">Welpenleiding</div>
-  <div class="leiding-grid">
-    <div class="leiding-card" style="border-top:3px solid #EF9F27">
-      <div class="leiding-avatar" style="background:#EF9F27">SW</div>
-      <h4>Olijke Capitano</h4>
-      <div class="totem">Nathan Dezeure</div>
-      <a href="mailto:welpen@dealbatros.be" class="email">welpen@dealbatros.be</a>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #EF9F27">
-      <div class="leiding-avatar" style="background:#d68910">GB</div>
-      <h4>Ongeremde Kangoeroe</h4>
-      <div class="totem">Robin Van Bever</div>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #EF9F27">
-      <div class="leiding-avatar" style="background:#f0b429">VL</div>
-      <h4>Vindingrijke Olifant</h4>
-      <div class="totem">Lennert Vanlerberghe</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- JVG -->
-<div class="section">
-  <div class="section-label" style="color:#2D6A1F">🌿 JVG's</div>
-  <div class="section-title">JVG-leiding</div>
-  <div class="leiding-grid">
-    <div class="leiding-card" style="border-top:3px solid #2D6A1F">
-      <div class="leiding-avatar" style="background:#2D6A1F">DV</div>
-      <h4>Hartige Sneeuwstormvogel</h4>
-      <div class="totem">Liesbeth Van Waeleghem</div>
-      <a href="mailto:jvg@dealbatros.be" class="email">jvg@dealbatros.be</a>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #2D6A1F">
-      <div class="leiding-avatar" style="background:#1e8449">WB</div>
-      <h4>Onverzettelijke Emoe</h4>
-      <div class="totem">Otto Declercq</div>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #2D6A1F">
-      <div class="leiding-avatar" style="background:#239b56">SH</div>
-      <h4>Bedachtzame Das</h4>
-      <div class="totem">Quentin Minnaert</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- VG -->
-<div class="section">
-  <div class="section-label" style="color:#1A5276">⚡ VG's</div>
-  <div class="section-title">VG-leiding</div>
-  <div class="leiding-grid">
-    <div class="leiding-card" style="border-top:3px solid #1A5276">
-      <div class="leiding-avatar" style="background:#1A5276">KA</div>
-      <h4>Bedrijverige Nandoe</h4>
-      <div class="totem">Bram Lierman</div>
-      <a href="mailto:vg@dealbatros.be" class="email">vg@dealbatros.be</a>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #1A5276">
-      <div class="leiding-avatar" style="background:#1a5276">MR</div>
-      <h4>Scherpzinnige Emippo</h4>
-      <div class="totem">Charles Willems</div>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #1A5276">
-      <div class="leiding-avatar" style="background:#2471a3">ZD</div>
-      <h4>Dromerige Lori</h4>
-      <div class="totem">Henri Delacourt</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- Seniors -->
-<div class="section">
-  <div class="section-label" style="color:#7F77DD">🔥 Seniors</div>
-  <div class="section-title">Seniorenleiding</div>
-  <div class="leiding-grid">
-    <div class="leiding-card" style="border-top:3px solid #7F77DD">
-      <div class="leiding-avatar" style="background:#7F77DD">BS</div>
-      <h4>Hupse Motacilla</h4>
-      <div class="totem">Gaetan Dejaeghere</div>
-      <a href="mailto:seniors@dealbatros.be" class="email">seniors@dealbatros.be</a>
-    </div>
-    <div class="leiding-card" style="border-top:3px solid #7F77DD">
-      <div class="leiding-avatar" style="background:#6c63c9">WM</div>
-      <h4>Bestendige Conejo</h4>
-      <div class="totem">Emile Willems</div>
-    </div>
-  </div>
-</div>
-
-<div class="divider"></div>
-
-<!-- Stam -->
-<div class="section">
-  <div class="section-label" style="color:#5a5a6a">🏕️ Stam</div>
-  <div class="section-title">Stamleiding</div>
-  <div class="leiding-grid">
-    <div class="leiding-card" style="border-top:3px solid #5a5a6a">
-      <div class="leiding-avatar" style="background:#5a5a6a">SL</div>
-      <h4>Katta</h4>
-      <div class="totem">Noor Saelens</div>
-      <a href="mailto:stam@dealbatros.be" class="email">stam@dealbatros.be</a>
-    </div>
-  </div>
-</div>
-
-<style>
-.info-subnav {
-  background: #fff; border-bottom: 0.5px solid var(--border);
-  padding: .6rem 2rem; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+<script>
+function laad() {
+  LeidingUtils.laadVolledigOverzicht('leidingOverzicht');
 }
-.info-subnav-link { font-size: .75rem; font-weight: 700; color: var(--text-muted); text-decoration: none; white-space: nowrap; }
-.info-subnav-link:hover { color: var(--blue); }
-.info-subnav-pills { display: flex; gap: .4rem; flex-wrap: wrap; }
-.info-pill {
-  font-size: .75rem; font-weight: 700; color: var(--text-muted); text-decoration: none;
-  padding: 4px 12px; border-radius: 999px; border: 0.5px solid var(--border); background: #fff;
-  transition: background .15s, color .15s, border-color .15s;
-}
-.info-pill:hover { background: var(--blue-pale); color: var(--blue); border-color: var(--blue-pale); }
-.info-pill.active { background: var(--blue); color: #fff; border-color: var(--blue); }
-
-.leiding-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-  gap: .8rem;
-  margin-top: .8rem;
-}
-
-.leiding-card-lg {
-  background: #fff;
-  border: 0.5px solid var(--border);
-  border-top: 3px solid;
-  border-radius: var(--radius);
-  padding: 1.4rem 1.2rem;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
-}
-.leiding-avatar-lg {
-  width: 62px; height: 62px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  margin: 0 auto .7rem;
-  font-weight: 900; font-size: 1rem; color: #fff;
-}
-.leiding-card-lg h4 { font-size: .92rem; font-weight: 900; margin-bottom: .15rem; }
-.leiding-totem-name { font-size: .76rem; color: var(--text-muted); margin-bottom: .2rem; }
-.leiding-role { font-size: .7rem; font-weight: 700; color: var(--teal); margin-bottom: .5rem; }
-.leiding-email, .leiding-tel {
-  font-size: .72rem; color: var(--blue-light); text-decoration: none;
-  display: flex; align-items: center; justify-content: center; gap: .3rem;
-  font-weight: 700; margin-top: .3rem;
-}
-.leiding-email:hover, .leiding-tel:hover { text-decoration: underline; }
-
-.ext-link-inline {
-  font-size: .82rem; font-weight: 700; color: var(--blue-light);
-  text-decoration: none; display: inline-flex; align-items: center; gap: .4rem;
-}
-.ext-link-inline:hover { text-decoration: underline; }
-</style>
+window.addEventListener('leiding-updated', laad);
+document.addEventListener('DOMContentLoaded', () => setTimeout(laad, 300));
+</script>
 
 </body>
 </html>
