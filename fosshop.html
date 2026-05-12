@@ -88,7 +88,7 @@
       <div id="fotoPreview" class="foto-preview-inner">
         <i class="ti ti-photo-plus"></i>
         <span>Klik om foto te uploaden</span>
-        <small>JPG, PNG of WEBP · max 2MB</small>
+        <small>JPG, PNG of WEBP · max 10MB</small>
       </div>
       <input type="file" id="fotoInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleFotoKeuze(event)">
     </div>
@@ -380,8 +380,8 @@ function handleFotoKeuze(event) {
   const file = event.target.files[0];
   if (!file) return;
 
-  if (file.size > 2 * 1024 * 1024) {
-    alert('Foto is te groot. Maximaal 2MB toegestaan.');
+  if (file.size > 10 * 1024 * 1024) {
+    alert('Foto is te groot. Maximaal 10MB toegestaan.');
     event.target.value = '';
     return;
   }
@@ -430,7 +430,7 @@ function openProductModal(id = null) {
     <div id="fotoPreview" class="foto-preview-inner">
       <i class="ti ti-photo-plus"></i>
       <span>Klik om foto te uploaden</span>
-      <small>JPG, PNG of WEBP · max 2MB</small>
+      <small>JPG, PNG of WEBP · max 10MB</small>
     </div>
     <input type="file" id="fotoInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="handleFotoKeuze(event)">`;
   document.getElementById('fotoUploadZone').onclick = () => document.getElementById('fotoInput').click();
