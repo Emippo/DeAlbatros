@@ -1089,9 +1089,9 @@ footer {
 
 /* Foto of initialen avatar */
 .leiding-foto {
-  width: 100px; height: 100px;
+  width: 100px; height: auto;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
   border: 0px solid var(--border);
   margin: 0 auto .6rem;
   display: block;
