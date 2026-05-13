@@ -54,9 +54,12 @@
     // ── Sponsors configuratie ──────────────────────────────────
     // Voeg hier je sponsors toe. 'logo' is optioneel; 'name' altijd verplicht.
     const SPONSORS = [
-      { name: 'Sponsor A',  logo: '' },
-      { name: 'Sponsor B',  logo: '' },
-      { name: 'Sponsor C',  logo: '' },
+      { name: 'Brasserie Bristol',  logo: '' },
+      { name: 'Debbaut',  logo: '' },
+      { name: 'Peter Huys',  logo: '' },
+      { name: 'Mood Beach',  logo: '' },
+      { name: 'Books and Balance',  logo: '' },
+      { name: 'Engelrest Zeebrugge',  logo: '' },
     ];
 
     const sponsorLogoSlides = SPONSORS.map((s, i) => `
