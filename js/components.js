@@ -51,12 +51,45 @@
         <span>${t.label}</span>
       </a>`).join('');
 
+    // ── Sponsors configuratie ──────────────────────────────────
+    // Voeg hier je sponsors toe. 'logo' is optioneel; 'name' altijd verplicht.
+    const SPONSORS = [
+      { name: 'Sponsor A',  logo: '' },
+      { name: 'Sponsor B',  logo: '' },
+      { name: 'Sponsor C',  logo: '' },
+    ];
+
+    const sponsorLogoSlides = SPONSORS.map((s, i) => `
+      <div class="sponsor-logo-slide${i === 0 ? ' active' : ''}" data-sponsor-logo="${i}">
+        ${s.logo
+          ? `<img src="${s.logo}" alt="${s.name}" title="${s.name}">`
+          : `<span style="color:rgba(255,255,255,.6);font-size:.7rem;font-weight:800;letter-spacing:.5px">${s.name}</span>`}
+      </div>`).join('');
+
+    const sponsorNameSlides = SPONSORS.map((s, i) => `
+      <div class="sponsor-name-slide${i === 0 ? ' active' : ''}" data-sponsor-name="${i}">${s.name}</div>`
+    ).join('');
+
     return `
 <nav id="mainNav">
   <a href="${prefix}index.html" class="nav-logo" id="navLogo">
     <img src="${prefix}img/logo.png" onerror="this.style.display='none'" alt="Logo 102e FOS De Albatros" id="navLogoImg">
     <div class="nav-logo-text" id="navLogoText">De Albatros<small>102e FOS · Knokke-Heist</small></div>
   </a>
+
+  <!-- Sponsor zone — zit tussen logo en hamburger -->
+  <div id="navSponsors" style="flex:1;display:flex;align-items:center;justify-content:flex-end;padding-right:1rem;overflow:hidden;">
+    <!-- Logo-modus (bovenaan) -->
+    <div id="sponsorLogoWrap" style="display:flex;align-items:center;height:100%;">
+      ${sponsorLogoSlides}
+    </div>
+    <!-- Naam-modus (gescrolld) -->
+    <div id="sponsorNameWrap" class="sponsor-name-ticker" style="display:none;">
+      <span class="sponsor-label">Partner</span>
+      ${sponsorNameSlides}
+    </div>
+  </div>
+
   <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Menu openen">
     <span></span><span></span><span></span>
   </button>
@@ -231,29 +264,100 @@
       document.body.style.overflow = '';
     };
 
-// ── Logo scroll-shrink met hysteresis ───────────────────
-let scrollTicking = false;
-let navScrolled = false;
+// ── Vloeiende scroll-animatie (geen CSS-transition, directe interpolatie) ──
+(function () {
+  // Scroll-bereik waarbinnen de nav krimpt
+  const SCROLL_START = 0;   // px: begint te krimpen
+  const SCROLL_END   = 120; // px: volledig gekrompen
 
-window.addEventListener('scroll', function () {
-  if (!scrollTicking) {
-    requestAnimationFrame(function () {
-      const nav = document.getElementById('mainNav');
-      if (!nav) return;
-      const y = window.scrollY;
-      // Alleen klein maken boven 80px 
-      if (!navScrolled && y > 80) {
-        navScrolled = true;
-        nav.classList.add('nav-scrolled');}
-      // Alleen terug groot maken onder 45px
-      else if (navScrolled && y < 40) {
-        navScrolled = false;
-        nav.classList.remove('nav-scrolled');}
-      scrollTicking = false;
-    });
-    scrollTicking = true;
+  // Nav-waarden: [groot, klein]
+  const PAD_TOP_BIG   = .65, PAD_TOP_SM   = .30; // rem
+  const LOGO_BIG      = 74,  LOGO_SM      = 36;  // px
+  const FONT_BIG      = 1.1, FONT_SM      = .82; // rem
+
+  // Sponsor-slideshow interval (ms)
+  const SLIDE_MS = 3000;
+
+  function lerp(a, b, t) { return a + (b - a) * t; }
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  let raf = null;
+  let lastY = -1;
+
+  function applyScroll() {
+    const y = window.scrollY;
+    if (y === lastY) { raf = null; return; }
+    lastY = y;
+
+    const t = clamp((y - SCROLL_START) / (SCROLL_END - SCROLL_START), 0, 1);
+
+    const nav  = document.getElementById('mainNav');
+    const img  = document.getElementById('navLogoImg');
+    const txt  = document.getElementById('navLogoText');
+    const small = txt?.querySelector('small');
+    if (!nav || !img || !txt) { raf = null; return; }
+
+    // Padding
+    const pad = lerp(PAD_TOP_BIG, PAD_TOP_SM, t);
+    nav.style.paddingTop    = pad + 'rem';
+    nav.style.paddingBottom = pad + 'rem';
+
+    // Logo grootte
+    const sz = lerp(LOGO_BIG, LOGO_SM, t);
+    img.style.width  = sz + 'px';
+    img.style.height = sz + 'px';
+
+    // Logo tekst
+    const fs = lerp(FONT_BIG, FONT_SM, t);
+    txt.style.fontSize = fs + 'rem';
+
+    // Subtitel (102e FOS…) fade + inkrimpen
+    if (small) {
+      small.style.opacity   = 1 - t;
+      small.style.maxHeight = lerp(20, 0, t) + 'px';
+    }
+
+    // Sponsor logo-modus ↔ naam-modus
+    const logoWrap = document.getElementById('sponsorLogoWrap');
+    const nameWrap = document.getElementById('sponsorNameWrap');
+    if (logoWrap && nameWrap) {
+      if (t < 0.5) {
+        logoWrap.style.display = 'flex';
+        logoWrap.style.opacity = 1 - t * 2;
+        nameWrap.style.display = 'none';
+      } else {
+        logoWrap.style.display = 'none';
+        nameWrap.style.display = 'flex';
+        nameWrap.style.opacity = (t - 0.5) * 2;
+      }
+    }
+
+    raf = null;
   }
-});
+
+  window.addEventListener('scroll', function () {
+    if (!raf) raf = requestAnimationFrame(applyScroll);
+  }, { passive: true });
+
+  // Initieel toepassen (bij herladen terwijl al gescrolld)
+  requestAnimationFrame(applyScroll);
+
+  // ── Sponsor slideshow ─────────────────────────────────────
+  let sponsorIdx = 0;
+  function nextSponsor() {
+    const logoSlides = document.querySelectorAll('[data-sponsor-logo]');
+    const nameSlides = document.querySelectorAll('[data-sponsor-name]');
+    if (!logoSlides.length) return;
+
+    logoSlides.forEach(el => el.classList.remove('active'));
+    nameSlides.forEach(el => el.classList.remove('active'));
+
+    sponsorIdx = (sponsorIdx + 1) % logoSlides.length;
+    logoSlides[sponsorIdx]?.classList.add('active');
+    nameSlides[sponsorIdx]?.classList.add('active');
+  }
+  setInterval(nextSponsor, 3000);
+})();
   }
 
   if (document.readyState === 'loading') {
