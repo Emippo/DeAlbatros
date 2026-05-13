@@ -99,26 +99,23 @@ nav {
   top: 0;
   z-index: 200;
   box-shadow: 0 2px 12px rgba(10,30,70,.18);
-  transition: padding .3s ease;
-  will-change: padding;
+  /* Geen CSS transition meer — JS stuurt de waarden direct via style */
 }
 
-/* Logo — groot bovenaan, krimpt bij scrollen */
+/* Logo — groot bovenaan, krimpt vloeiend mee met scroll */
 .nav-logo {
   display: flex;
   align-items: center;
   gap: .65rem;
   text-decoration: none;
-  transition: gap .3s ease;
 }
 #navLogoImg {
   width: 74px; height: 74px;
   border-radius: 50%;
   object-fit: cover;
   border: 0px solid var(--yellow);
-  transition: width .3s ease, height .3s ease, border-width .3s ease;
-  will-change: width, height;
   flex-shrink: 0;
+  /* grootte wordt live via style.width/height gezet */
 }
 .nav-logo-text {
   font-family: 'Playfair Display', serif;
@@ -126,7 +123,6 @@ nav {
   color: #fff;
   font-weight: 700;
   line-height: 1.15;
-  transition: font-size .3s ease, opacity .3s ease;
 }
 .nav-logo-text small {
   display: block;
@@ -136,16 +132,79 @@ nav {
   text-transform: uppercase;
   color: rgba(255,255,255,.55);
   font-weight: 400;
-  transition: opacity .3s ease, max-height .3s ease;
   overflow: hidden;
-  max-height: 20px;
+  /* max-height & opacity worden live gezet */
 }
 
-/* Verklein bij scrollen */
-nav.nav-scrolled { padding: .35rem 1.5rem; }
-nav.nav-scrolled #navLogoImg { width: 35px; height: 35px; border-width: 2px; }
-nav.nav-scrolled .nav-logo-text { font-size: .82rem; }
-nav.nav-scrolled .nav-logo-text small { opacity: 0; max-height: 0; margin: 0; }
+/* nav-scrolled wordt niet meer gebruikt voor grootte,
+   alleen nog als hook voor andere elementen indien gewenst */
+nav.nav-scrolled { /* placeholder */ }
+
+/* ── SPONSOR BALK in nav ─────────────────────────────────── */
+#navSponsors {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  flex-shrink: 0;
+  /* breedte/hoogte worden via JS gezet */
+}
+
+/* Logo-modus: afbeeldingen als slideshow */
+.sponsor-logo-slide {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+.sponsor-logo-slide.active { display: flex; }
+.sponsor-logo-slide img {
+  max-height: 100%;
+  max-width: 120px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: .75;
+  transition: opacity .3s;
+}
+.sponsor-logo-slide img:hover { opacity: 1; }
+
+/* Naam-modus: tekst als ticker */
+.sponsor-name-ticker {
+  display: none;
+  align-items: center;
+  gap: .5rem;
+  color: rgba(255,255,255,.6);
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.sponsor-name-ticker.visible { display: flex; }
+.sponsor-name-ticker .sponsor-label {
+  font-size: .55rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(255,255,255,.35);
+  flex-shrink: 0;
+}
+.sponsor-name-slide {
+  display: none;
+  align-items: center;
+  gap: .35rem;
+  color: rgba(255,255,255,.75);
+  font-weight: 800;
+  font-size: .72rem;
+}
+.sponsor-name-slide.active { display: flex; }
+.sponsor-name-slide::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--yellow);
+  opacity: .7;
+  flex-shrink: 0;
+}
 
 /* Hamburger knop */
 .hamburger {
