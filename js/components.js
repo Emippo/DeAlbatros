@@ -51,47 +51,12 @@
         <span>${t.label}</span>
       </a>`).join('');
 
-    // ── Sponsors configuratie ──────────────────────────────────
-    // Voeg hier je sponsors toe. 'logo' is optioneel; 'name' altijd verplicht.
-    const SPONSORS = [
-      { name: 'Brasserie Bristol',  logo: '${prefix}img/sponsors/Bristol.jpg' },
-      { name: 'Debbaut',  logo: '${prefix}img/sponsors/Debbaut.jpg'  },
-      { name: 'Peter Huys',  logo: '${prefix}img/sponsors/Peter Huys.jpg'  },
-      { name: 'Mood Beach',  logo: '${prefix}img/sponsors/Mood Beach.jpg'  },
-      { name: 'Books and Balance',  logo:'${prefix}img/sponsors/Books And Balance.jpg'  },
-      { name: 'Engelrest Zeebrugge',  logo: '${prefix}img/sponsors/Engelrest.jpg' },
-    ];
-
-    const sponsorLogoSlides = SPONSORS.map((s, i) => `
-      <div class="sponsor-logo-slide${i === 0 ? ' active' : ''}" data-sponsor-logo="${i}">
-        ${s.logo
-          ? `<img src="${s.logo}" alt="${s.name}" title="${s.name}">`
-          : `<span style="color:rgba(255,255,255,.6);font-size:.7rem;font-weight:800;letter-spacing:.5px">${s.name}</span>`}
-      </div>`).join('');
-
-    const sponsorNameSlides = SPONSORS.map((s, i) => `
-      <div class="sponsor-name-slide${i === 0 ? ' active' : ''}" data-sponsor-name="${i}">${s.name}</div>`
-    ).join('');
-
     return `
 <nav id="mainNav">
   <a href="${prefix}index.html" class="nav-logo" id="navLogo">
     <img src="${prefix}img/logo.png" onerror="this.style.display='none'" alt="Logo 102e FOS De Albatros" id="navLogoImg">
     <div class="nav-logo-text" id="navLogoText">De Albatros<small>102e FOS · Knokke-Heist</small></div>
   </a>
-
-  <!-- Sponsor zone — zit tussen logo en hamburger -->
-  <div id="navSponsors" style="flex:1;display:flex;align-items:center;justify-content:flex-end;padding-right:1rem;overflow:hidden;">
-    <!-- Logo-modus (bovenaan) -->
-    <div id="sponsorLogoWrap" style="display:flex;align-items:center;height:100%;">
-      ${sponsorLogoSlides}
-    </div>
-    <!-- Naam-modus (gescrolld) -->
-    <div id="sponsorNameWrap" class="sponsor-name-ticker" style="display:none;">
-      <span class="sponsor-label">Sponsor</span>
-      ${sponsorNameSlides}
-    </div>
-  </div>
 
   <button class="hamburger" id="hamburgerBtn" onclick="toggleSidebar()" aria-label="Menu openen">
     <span></span><span></span><span></span>
@@ -278,8 +243,6 @@
   const LOGO_BIG      = 74,  LOGO_SM      = 36;  // px
   const FONT_BIG      = 1.1, FONT_SM      = .82; // rem
 
-  // Sponsor-slideshow interval (ms)
-  const SLIDE_MS = 3000;
 
   function lerp(a, b, t) { return a + (b - a) * t; }
   function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
@@ -320,21 +283,6 @@
       small.style.maxHeight = lerp(20, 0, t) + 'px';
     }
 
-    // Sponsor logo-modus ↔ naam-modus
-    const logoWrap = document.getElementById('sponsorLogoWrap');
-    const nameWrap = document.getElementById('sponsorNameWrap');
-    if (logoWrap && nameWrap) {
-      if (t < 0.5) {
-        logoWrap.style.display = 'flex';
-        logoWrap.style.opacity = 1 - t * 2;
-        nameWrap.style.display = 'none';
-      } else {
-        logoWrap.style.display = 'none';
-        nameWrap.style.display = 'flex';
-        nameWrap.style.opacity = (t - 0.5) * 2;
-      }
-    }
-
     raf = null;
   }
 
@@ -345,23 +293,6 @@
   // Initieel toepassen (bij herladen terwijl al gescrolld)
   requestAnimationFrame(applyScroll);
 
-  // ── Sponsor slideshow ─────────────────────────────────────
-  let sponsorIdx = 0;
-  function nextSponsor() {
-    const logoSlides = document.querySelectorAll('[data-sponsor-logo]');
-    const nameSlides = document.querySelectorAll('[data-sponsor-name]');
-    if (!logoSlides.length) return;
-
-    logoSlides.forEach(el => el.classList.remove('active'));
-    nameSlides.forEach(el => el.classList.remove('active'));
-
-    sponsorIdx = (sponsorIdx + 1) % logoSlides.length;
-    logoSlides[sponsorIdx]?.classList.add('active');
-    nameSlides[sponsorIdx]?.classList.add('active');
-  }
-  setInterval(nextSponsor, 3000);
-})();
-  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', inject);
