@@ -54,12 +54,12 @@
     // ── Sponsors configuratie ──────────────────────────────────
     // Voeg hier je sponsors toe. 'logo' is optioneel; 'name' altijd verplicht.
     const SPONSORS = [
-      { name: 'Brasserie Bristol',  logo: '' },
-      { name: 'Debbaut',  logo: '' },
-      { name: 'Peter Huys',  logo: '' },
-      { name: 'Mood Beach',  logo: '' },
-      { name: 'Books and Balance',  logo: '' },
-      { name: 'Engelrest Zeebrugge',  logo: '' },
+      { name: 'Brasserie Bristol',  logo: '${prefix}img/sponsors/Bristol.jpg' },
+      { name: 'Debbaut',  logo: '${prefix}img/sponsors/Debbaut.jpg'  },
+      { name: 'Peter Huys',  logo: '${prefix}img/sponsors/Peter Huys.jpg'  },
+      { name: 'Mood Beach',  logo: '${prefix}img/sponsors/Mood Beach.jpg'  },
+      { name: 'Books and Balance',  logo:'${prefix}img/sponsors/Books And Balance.jpg'  },
+      { name: 'Engelrest Zeebrugge',  logo: '${prefix}img/sponsors/Engelrest.jpg' },
     ];
 
     const sponsorLogoSlides = SPONSORS.map((s, i) => `
@@ -88,7 +88,7 @@
     </div>
     <!-- Naam-modus (gescrolld) -->
     <div id="sponsorNameWrap" class="sponsor-name-ticker" style="display:none;">
-      <span class="sponsor-label">Partner</span>
+      <span class="sponsor-label">Sponsor</span>
       ${sponsorNameSlides}
     </div>
   </div>
