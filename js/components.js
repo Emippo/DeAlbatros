@@ -243,6 +243,8 @@
   const LOGO_BIG      = 74,  LOGO_SM      = 36;  // px
   const FONT_BIG      = 1.1, FONT_SM      = .82; // rem
 
+  // Sponsor-slideshow interval (ms)
+  const SLIDE_MS = 3000;
 
   function lerp(a, b, t) { return a + (b - a) * t; }
   function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
@@ -283,6 +285,21 @@
       small.style.maxHeight = lerp(20, 0, t) + 'px';
     }
 
+    // Sponsor logo-modus ↔ naam-modus
+    const logoWrap = document.getElementById('sponsorLogoWrap');
+    const nameWrap = document.getElementById('sponsorNameWrap');
+    if (logoWrap && nameWrap) {
+      if (t < 0.5) {
+        logoWrap.style.display = 'flex';
+        logoWrap.style.opacity = 1 - t * 2;
+        nameWrap.style.display = 'none';
+      } else {
+        logoWrap.style.display = 'none';
+        nameWrap.style.display = 'flex';
+        nameWrap.style.opacity = (t - 0.5) * 2;
+      }
+    }
+
     raf = null;
   }
 
@@ -293,6 +310,23 @@
   // Initieel toepassen (bij herladen terwijl al gescrolld)
   requestAnimationFrame(applyScroll);
 
+  // ── Sponsor slideshow ─────────────────────────────────────
+  let sponsorIdx = 0;
+  function nextSponsor() {
+    const logoSlides = document.querySelectorAll('[data-sponsor-logo]');
+    const nameSlides = document.querySelectorAll('[data-sponsor-name]');
+    if (!logoSlides.length) return;
+
+    logoSlides.forEach(el => el.classList.remove('active'));
+    nameSlides.forEach(el => el.classList.remove('active'));
+
+    sponsorIdx = (sponsorIdx + 1) % logoSlides.length;
+    logoSlides[sponsorIdx]?.classList.add('active');
+    nameSlides[sponsorIdx]?.classList.add('active');
+  }
+  setInterval(nextSponsor, 3000);
+})();
+  }
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', inject);
