@@ -110,10 +110,9 @@ nav {
   text-decoration: none;
 }
 #navLogoImg {
-  width: 74px; height: 74px;
+  width: 100px; height: 100px;
   border-radius: 50%;
   object-fit: contain;
-  border: 0px solid var(--yellow);
   flex-shrink: 0;
   /* grootte wordt live via style.width/height gezet */
 }
@@ -675,18 +674,18 @@ nav.nav-scrolled { /* placeholder */ }
 
 /* ── PAGE HEADER ─────────────────────────────────────────────── */
 .page-header {
-  background: linear-gradient(150deg, var(--blue-dark), var(--blue));
+  background: var(--blue);
   color: #fff;
   padding: 2rem 2rem 1.8rem;
 }
 .page-header .section-label { color: var(--yellow); opacity: 1; }
 .page-header h1 {
   font-family: 'Playfair Display', serif;
-  font-size: 2rem;
+  font-size: 2.5rem;
   line-height: 1.2;
   margin-bottom: .3rem;
 }
-.page-header p { font-size: .9rem; opacity: .75; max-width: 500px; }
+.page-header p { font-size: 1.2rem; opacity: .75; max-width: 500px; }
 
 /* ── TAK PAGE HEADER (met kleur-accent) ─────────────────────── */
 .tak-page-header {
